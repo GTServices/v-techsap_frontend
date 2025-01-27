@@ -15,12 +15,9 @@ const Header = memo(() => {
   const [navbarData, setNavbarData] = useState({});
   const [logoURL, setLogoURL] = useState(""); 
 
-  
-
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
 
   const fetchLogo = async () => {
     try {
@@ -32,35 +29,32 @@ const Header = memo(() => {
     }
   };
 
-
-
   const fetchNavbarData = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/staticText/getDatas?lang=${selectedLanguage}`,
-        {
-          method: "POST",
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(["about", "contact", "home-page", "services"])
-        }
-      );
+      const response = await fetch(`${BASE_URL}/staticText/getDatas?lang=${selectedLanguage}`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(["about", "contact", "home-page", "services", "main-address", "linkedin-link", "youtube-link", "facebook-link", "instagram-link"])
+      });
       const data = await response.json();
       if (response.ok) {
-        setNavbarData(data);
+        setNavbarData({
+          ...data,
+        
+          "main-address": data["main-address"] || data["address"]
+        });
       } else {
-        console.error(data)
+        console.error("Failed to fetch navbar data", data);
       }
-      
     } catch (error) {
       console.error("Error fetching navbar data:", error);
     }
   };
 
- 
   const fetchLanguages = async () => {
     try {
       const response = await fetch(`${BASE_URL}/lang`);
       const data = await response.json();
-      
       dispatch(setLanguages(data)); 
     } catch (error) {
       console.error("Error fetching languages:", error);
@@ -150,14 +144,15 @@ const Header = memo(() => {
           <li><a href="/about">{navbarData["about"] || "Haqqımızda"}</a></li>
           <li><a href="/services">{navbarData["services"] || "Xidmətlər"}</a></li>
           <li><a href="/contact">{navbarData["contact"] || "Əlaqə"}</a></li>
+
           {isMenuOpen && (
             <div className="contact-section" style={{ paddingTop: "10rem" }}>
               <ul className="contact-info">
-                <h4 className="contact-section-title">Əlaqə</h4>
+                <h4 className="contact-section-title">{navbarData["contact"] || "Contact"}</h4>
                 <li>
                   <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer">
                     <FaLocationDot className="contact-icon" />
-                    Nizami rayon, Mehdi Abbasov 121
+                    {navbarData["main-address"] || "Nizami district, Mehdi Abbasov 121"}
                   </a>
                 </li>
                 <li>
@@ -168,16 +163,16 @@ const Header = memo(() => {
                 </li>
               </ul>
               <div className="social-links">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <a href={navbarData["instagram-link"] || "https://instagram.com"} target="_blank" rel="noopener noreferrer">
                   <FaInstagram />
                 </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                <a href={navbarData["linkedin-link"]} target="_blank" rel="noopener noreferrer">
                   <FaLinkedin />
                 </a>
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+                <a href={navbarData["youtube-link"] || "https://youtube.com"} target="_blank" rel="noopener noreferrer">
                   <FaYoutube />
                 </a>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                <a href={navbarData["facebook-link"] || "https://facebook.com"} target="_blank" rel="noopener noreferrer">
                   <FaFacebook />
                 </a>
               </div>

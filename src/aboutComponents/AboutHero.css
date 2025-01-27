@@ -95,8 +95,14 @@
   }
   .game {
     position: absolute;
-    top: 10%;
-    left: 25.5%;
+    top: 15%;
+    left: 20.5%;
+    width: 30rem;
+    height: 30rem;
+  }
+  .game img{
+    width: 100%;
+    height: 100%;
   }
                                                                                                 /*! Responsive  */
   @media (max-width:849px) {

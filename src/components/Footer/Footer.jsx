@@ -6,10 +6,12 @@ import "./Footer.css";
 
 function Footer() {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const [texts, setTexts] = useState({});
+  const [footerCopy, setFooterCopy] = useState("");  
   const BASE_URL = useSelector((state) => state.tech.BASE_URL);
-  const language = useSelector((state) => state.tech.language);  
+  const language = useSelector((state) => state.tech.language);
+
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth <= 768);
@@ -22,7 +24,7 @@ function Footer() {
   useEffect(() => {
     const fetchTexts = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/staticText/getDatas?lang=${language}`, {  
+        const response = await fetch(`${BASE_URL}/staticText/getDatas?lang=${language}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -33,18 +35,32 @@ function Footer() {
         if (!response.ok) throw new Error("Failed to fetch data");
 
         const data = await response.json();
-        // console.log("Fetched Texts:", data);
+
         setTexts(data);
-        setLoading(false); 
+        setLoading(false);
       } catch (error) {
         console.error("Text fetching failed:", error);
-        setLoading(false); 
+        setLoading(false);
+      }
+    };
+
+    const fetchFooterCopy = async () => { 
+      try {
+        const response = await fetch(`${BASE_URL}/customText/footer-copy?lang=${language}`);
+        const data = await response.json();
+        if (data && data.value) {
+          setFooterCopy(data.value); 
+        } else {
+          console.error("Footer copy bilgisi alınamadı.");
+        }
+      } catch (error) {
+        console.error("Footer copy fetch sırasında bir hata oluştu:", error);
       }
     };
 
     fetchTexts();
+    fetchFooterCopy(); 
   }, [BASE_URL, language]);
-
 
   if (loading) {
     return <p>Loading...</p>;
@@ -110,7 +126,7 @@ function Footer() {
 
       <div className="foot-bottom container">
         <p>
-          &copy; 2025 Tech. Bütün hüquqlar <a href="#">WebCoder</a> qorunur.
+          &copy; {footerCopy} 
         </p>
       </div>
     </section>

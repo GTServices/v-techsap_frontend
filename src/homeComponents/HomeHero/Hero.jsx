@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSpring, animated } from "@react-spring/web";
 import "./Hero.css";
@@ -15,47 +15,78 @@ function Hero() {
   const [imageUrl, setImageUrl] = useState("");
   const [companyCount, setCompanyCount] = useState(null);
   const [workCount, setWorkCount] = useState(null);
-  const [companyCountText, setCompanyCountText] = useState(""); 
-  const [workCountText, setWorkCountText] = useState(""); 
+  const [companyCountText, setCompanyCountText] = useState("");
+  const [workCountText, setWorkCountText] = useState("");
+  const [heroTitle, setHeroTitle] = useState("");
+  const [heroDesc, setHeroDesc] = useState("");
+  const [askUsText, setAskUsText] = useState("");
+  const [heroBackImage, setHeroBackImage] = useState(""); 
   const BASE_URL = useSelector((state) => state.tech.BASE_URL);
 
   useEffect(() => {
-    const fetchImage = async () => {
+    const fetchHeroData = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/staticImage/home-hero?lang=${selectedLanguage}`);
-        const data = await response.json();
-        setImageUrl(data.image);
-      } catch (error) {
-        console.error("Error loading image:", error);
-      }
-    };
+        const imageResponse = await fetch(
+          `${BASE_URL}/staticImage/home-hero?lang=${selectedLanguage}`
+        );
+        const imageData = await imageResponse.json();
+        setImageUrl(imageData.image);
 
-    const fetchCounts = async () => {
-      try {
-        
-        const companyCountResponse = await fetch(`${BASE_URL}/setting/company-count`);
+        const heroResponse = await fetch(
+          `${BASE_URL}/customText/getDatas?lang=${selectedLanguage}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(["home-hero-title", "home-hero-desc"]),
+          }
+        );
+        const heroData = await heroResponse.json();
+        setHeroTitle(heroData["home-hero-title"]);
+        setHeroDesc(heroData["home-hero-desc"]);
+
+        const companyCountResponse = await fetch(
+          `${BASE_URL}/setting/company-count?lang=${selectedLanguage}`
+        );
         const companyCountData = await companyCountResponse.json();
         setCompanyCount(companyCountData.value);
 
-        const companyCountTextResponse = await fetch(`${BASE_URL}/staticText/company-count`);
+        const companyCountTextResponse = await fetch(
+          `${BASE_URL}/staticText/company-count?lang=${selectedLanguage}`
+        );
         const companyCountTextData = await companyCountTextResponse.json();
         setCompanyCountText(companyCountTextData.value);
 
-    
-        const workCountResponse = await fetch(`${BASE_URL}/setting/work-count`);
+        const workCountResponse = await fetch(
+          `${BASE_URL}/setting/work-count?lang=${selectedLanguage}`
+        );
         const workCountData = await workCountResponse.json();
         setWorkCount(workCountData.value);
 
-        const workCountTextResponse = await fetch(`${BASE_URL}/staticText/work-count`);
+        const workCountTextResponse = await fetch(
+          `${BASE_URL}/staticText/work-count?lang=${selectedLanguage}`
+        );
         const workCountTextData = await workCountTextResponse.json();
         setWorkCountText(workCountTextData.value);
+
+        const askUsResponse = await fetch(
+          `${BASE_URL}/staticText/ask-us?lang=${selectedLanguage}`
+        );
+        const askUsData = await askUsResponse.json();
+        setAskUsText(askUsData.value);
+
+        const heroBackResponse = await fetch(
+          `${BASE_URL}/staticImage/logo-textless`
+        ); 
+        const heroBackData = await heroBackResponse.json();
+        setHeroBackImage(heroBackData.image);
       } catch (error) {
-        console.error("Error fetching counts or text:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
-    fetchImage();
-    fetchCounts();
+    fetchHeroData();
   }, [BASE_URL, selectedLanguage]);
 
   const safeParseInt = (value) => {
@@ -75,48 +106,37 @@ function Hero() {
     config: { tension: 120, friction: 60 },
   });
 
-  const renderCard = useCallback(
-    (springProps, text) => (
-      <div className="hero-left-card">
-        <AnimatedNumber springProps={springProps} />
-        <p>{text}</p>
-      </div>
-    ),
-    []
-  );
-
   return (
     <section className="hero-wrapper container">
       <div className="total">
-        {/* Sol içerik */}
         <div className="hero-left-content">
           <div className="hero-left-top">
             <div className="hero-back">
               <img
-                src="/hero-back.png"
+                src={heroBackImage}
                 alt="background"
                 className="optimized-img"
                 loading="lazy"
               />
             </div>
-            <h2>
-              Biz insanları ön planda tutan <br /> texnologiya innovatoruyuq
-            </h2>
-            <p>
-              "v-TECHSAP" İT xidmətləri, bulud saxlanması, kibertəhlükəsizlik və
-              innovativ infrastruktur idarəçiliyi ilə müştərilərinə etibarlı
-              texnologiya dəstəyi təmin edir.
-            </p>
-            <button type="button">Bizdən soruş</button>
+            <h2>{heroTitle || "Loading..."}</h2>
+            <p>{heroDesc || "Loading..."}</p>
+            <button type="button">{askUsText || "Loading..."}</button>
           </div>
         </div>
-        
+
         <div className="hero-left-bottom">
-          {renderCard(props1, companyCount !== null ? companyCountText : "Loading...")}
-          {renderCard(props2, workCount !== null ? workCountText : "Loading...")}
+          <div className="hero-left-card">
+            <AnimatedNumber springProps={props1} />
+            <p>{companyCount !== null ? companyCountText : "Loading..."}</p>
+          </div>
+          <div className="hero-left-card">
+            <AnimatedNumber springProps={props2} />
+            <p>{workCount !== null ? workCountText : "Loading..."}</p>
+          </div>
         </div>
       </div>
-  
+
       <div className="hero-right-content">
         <div className="hero-right-img">
           <div className="overlay"></div>

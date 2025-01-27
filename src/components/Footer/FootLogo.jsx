@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 
 function FootLogo() {
   const [logoUrl, setLogoUrl] = useState(""); 
+  const [footerTitle, setFooterTitle] = useState("");  
   const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
+  const selectedLanguage = useSelector((state) => state.tech.language);  
 
   useEffect(() => {
-
     const fetchLogo = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/staticImage/logo_dark`);
+        const response = await fetch(`${BASE_URL}/staticImage/logo-dark`);
         const data = await response.json();
         if (data && data.image) {
           setLogoUrl(data.image); 
@@ -21,8 +22,24 @@ function FootLogo() {
       }
     };
 
+    const fetchFooterTitle = async () => { 
+      try {
+        const response = await fetch(`${BASE_URL}/customText/footer-title?lang=${selectedLanguage}`);
+        const data = await response.json();
+        if (data && data.value) {
+          setFooterTitle(data.value);
+        } else {
+          console.error("Footer title bilgisi alınamadı.");
+        }
+      } catch (error) {
+        console.error("Footer title fetch sırasında bir hata oluştu:", error);
+      }
+    };
+
     fetchLogo();
-  }, [BASE_URL]);
+    fetchFooterTitle();  
+
+  }, [BASE_URL, selectedLanguage]);  
 
   return (
     <section className="foot-logo-section">
@@ -30,10 +47,10 @@ function FootLogo() {
         {logoUrl ? (
           <img src={logoUrl} alt="Company Logo" className="foot-logo-img" />
         ) : (
-          <p>Logo yükleniyor...</p> 
+          <p>Logo</p> 
         )}
       </div>
-      <h4 className="foot-tagline">Sizin Texnologiya Partnyorunuz!</h4>
+      <h4 className="foot-tagline">{footerTitle || 'Loading footer title...'}</h4> 
     </section>
   );
 }

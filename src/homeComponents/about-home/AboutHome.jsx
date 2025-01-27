@@ -1,10 +1,10 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useSelector } from "react-redux"; 
 import './AboutHome.css';
 
-const AboutContentLeft = memo(({ imageUrl }) => (
+const AboutContentLeft = memo(({ title, imageUrl }) => (
   <div className="aboutContentLeft">
-    <h3>Texnologiya İlə İrəliyə Baxırıq</h3>
+    <h3>{title}</h3>
     <div className="aboutContentLeftImg">
       <img
         src={imageUrl}
@@ -16,48 +16,108 @@ const AboutContentLeft = memo(({ imageUrl }) => (
   </div>
 ));
 
-const AboutContentRight = memo(() => (
+const AboutContentRight = memo(({ subtitle, description, buttonText }) => (
   <div className="aboutContentRight">
-    <h3>
-      Müştərilərimizin məlumatlarını təhlükəsiz saxlamaq və onların rəqəmsal təhlükələrdən qorunmasını təmin etmək bizim üçün prioritetdir.
-    </h3>
-    <p>
-      Texnologiyanın sürətlə dəyişdiyi bu dövrdə, biz müştərilərimizlə birlikdə davamlı inkişafı dəstəkləyirik. Komandamız hər bir layihəyə fərdi yanaşaraq, hər bir müştəri üçün uzunmüddətli və effektiv həllər hazırlayır.
-      İstər təhlükəsizlik, istərsə də iş proseslərinin optimallaşdırılması olsun, məqsədimiz müştərilərimizin rəqabət üstünlüyünü artırmaq və onların gələcəyə inamla baxmalarını təmin etməkdir.
-      Bizim üçün hər bir iş əlaqəsi, qarşılıqlı etibar və uzunmüddətli əməkdaşlıq deməkdir.
-    </p>
+    <h3>{subtitle}</h3>
+    <p>{description}</p>
     <div className="about-btn-div">
-      <button className="orangeBtn">Daha ətraflı</button>
+      <button className="orangeBtn">{buttonText}</button>
     </div>
   </div>
 ));
 
 function AboutHome() {
-  const [imageUrl, setImageUrl] = useState(""); 
-  const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
+  const [data, setData] = useState({
+    title: '',
+    subtitle: '',
+    description: '',
+    imageUrl: '',
+    buttonText: '',
+    headingText: ''
+  });
+
+  const BASE_URL = useSelector((state) => state.tech.BASE_URL);
+  const selectedLanguage = useSelector((state) => state.tech.language);
 
   useEffect(() => {
+    const fetchCustomText = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/customText/getDatas?lang=${selectedLanguage}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(["home-about-title", "home-about-subtitle", "home-about-desc"]),
+        });
+        const result = await response.json();
+        setData((prevData) => ({
+          ...prevData,
+          title: result["home-about-title"],
+          subtitle: result["home-about-subtitle"],
+          description: result["home-about-desc"],
+        }));
+      } catch (error) {
+        console.error("Məlumat yüklənərkən xəta baş verdi:", error);
+      }
+    };
+
     const fetchImage = async () => {
       try {
         const response = await fetch(`${BASE_URL}/staticImage/home-about`);
-        const data = await response.json();
-        setImageUrl(data.image); 
+        const result = await response.json();
+        setData((prevData) => ({
+          ...prevData,
+          imageUrl: result.image,
+        }));
       } catch (error) {
         console.error("Şəkil yüklənərkən xəta baş verdi:", error);
       }
     };
 
+    const fetchButtonText = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/staticText/more-details?lang=${selectedLanguage}`);
+        const result = await response.json();
+        setData((prevData) => ({
+          ...prevData,
+          buttonText: result.value,
+        }));
+      } catch (error) {
+        console.error("Button mətni yüklənərkən xəta baş verdi:", error);
+      }
+    };
+
+    const fetchHeadingText = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/staticText/about?lang=${selectedLanguage}`);
+        const result = await response.json();
+        setData((prevData) => ({
+          ...prevData,
+          headingText: result.value,
+        }));
+      } catch (error) {
+        console.error("Heading mətni yüklənərkən xəta baş verdi:", error);
+      }
+    };
+
+    fetchCustomText();
     fetchImage();
-  }, [BASE_URL]); 
+    fetchButtonText();
+    fetchHeadingText();
+  }, [BASE_URL, selectedLanguage]);
 
   return (
     <section className="aboutWrapper container">
       <div className="aboutWrapper-heading">
-        <h2 className="gradient-heading">HAQQIMIZDA</h2>
+        <h2 className="gradient-heading">{data.headingText}</h2>
       </div>
       <div className="aboutWrapperContent">
-        <AboutContentLeft imageUrl={imageUrl} /> 
-        <AboutContentRight />
+        <AboutContentLeft title={data.title} imageUrl={data.imageUrl} />
+        <AboutContentRight 
+          subtitle={data.subtitle} 
+          description={data.description} 
+          buttonText={data.buttonText}
+        />
       </div>
     </section>
   );

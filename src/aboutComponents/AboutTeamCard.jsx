@@ -37,7 +37,7 @@ function AboutTeamCard() {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        setIsLoading(true); // Start loading
+        setIsLoading(true); 
         const response = await fetch(`${BASE_URL}/team?limit=8&lang=${selectedLanguage}`);
         if (!response.ok) {
           throw new Error('Failed to fetch team data');

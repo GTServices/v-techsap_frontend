@@ -27,7 +27,7 @@ const PartnyorsHome = () => {
   return (
     <>
       <div className='container'>
-        <h4 className='gradient-heading'>{partnersText || "Loading..."}</h4>
+        <h4 className='gradient-heading'>{partnersText}</h4>
       </div>
       <Partnyors />
     </>

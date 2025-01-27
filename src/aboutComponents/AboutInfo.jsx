@@ -21,6 +21,10 @@ const ContentItem = memo(({ item }) => (
 
 function AboutInfo() {
   const [data, setData] = useState([]);
+  const [heading, setHeading] = useState("");
+  const [texts, setTexts] = useState({});
+
+
   const [rightImage, setRightImage] = useState(""); 
   const [isLoading, setIsLoading] = useState(true);
   const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
@@ -32,7 +36,6 @@ function AboutInfo() {
       try {
         setIsLoading(true); 
 
-     
         const valuesResponse = await fetch(`${BASE_URL}/ourValues?lang=${selectedLanguage}`);
         if (!valuesResponse.ok) {
           throw new Error("Əsas məlumat alınarkən xəta baş verdi");
@@ -54,7 +57,46 @@ function AboutInfo() {
       }
     };
 
+    const getText = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/customText/getDatas?lang=${selectedLanguage}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify([
+            "about-value-title", 
+            "about-value-desc"
+          ]),
+        });
+        if (!response.ok) throw new Error("Unexpected occurred");
+        const data = await response.json(); 
+        setTexts(data);
+      } catch (error) {
+        setError("Error fetching data");
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
+    const getHeading = async () => {
+      try{
+        const response = await fetch(`${BASE_URL}/staticText/our-values?lang=${selectedLanguage}`)
+        if (!response.ok) throw new Error("Unexpected occurred");
+        const data = await response.json(); 
+        setHeading(data.value)
+      } catch {
+        setError("Error fetching data");
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
     fetchData();
+    getHeading();
+    getText();
   }, [BASE_URL, selectedLanguage]);
 
   if (isLoading) {
@@ -63,11 +105,11 @@ function AboutInfo() {
 
   return (
     <div className="about-info container">
-      <h3 className="about-info__header">Our Values</h3>
+      <h3 className="about-info__header">{heading}</h3>
       <div className="about-info__title">
-        <h4 className="about-info__subtitle">What We Stand For</h4>
+        <h4 className="about-info__subtitle">{texts["about-value-title"]}</h4>
         <p className="about-info__description">
-          Learn more about the values that guide our work and vision.
+          {texts["about-value-desc"]}
         </p>
       </div>
       <div className="about-total">
