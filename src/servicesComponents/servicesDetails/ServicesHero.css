@@ -1,0 +1,124 @@
+.services-hero {
+    margin-bottom: clamp(6rem, 10vw, 10rem);
+}
+.services-hero .services-hero-all {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: clamp(2rem, 5vw, 3.2rem); 
+    background-color: var(--Secondary);
+    padding: clamp(2rem, 4vw, 3.2rem);
+    border-radius: clamp(1rem, 2vw, 1.6rem);
+}
+.services-hero .services-left-hero {
+    grid-area:  1 / 1 / 4 / 3;
+    max-width: 100%;
+    min-width: 60%;
+    height: min(100%, 44.8rem);
+    border-radius: .8rem;
+    overflow: hidden;
+    align-self: center;
+}
+.services-hero-all > *:not(.services-left-hero) {
+    grid-column: 3 / -1;
+}
+.services-hero .services-left-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;  
+}
+.services-hero .services-hero-right-top {
+    margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+.services-hero .services-hero-right-top h3 {
+    font-weight: 500;
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+}
+.services-hero .services-hero-right-bottom >div{
+    width: 50%;
+}
+.services-hero .services-hero-right-top p {
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    color: #4C4C4C;
+    line-height: clamp(2rem, 3.5vw, 2.6rem);
+}
+.services-hero .services-hero-right-bottom {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(20rem, 25vw, 30rem), 1fr));
+    gap: clamp(2rem, 2vw, 4.2rem);
+    width: 100%;
+    display: flex;
+}
+.services-hero .services-hero-right-bottom h4 {
+    background-color: #F6F6F6;
+    color: var( --PrimaryColor_1);
+    width: clamp(3rem, 5vw, 4rem);
+    height: clamp(3rem, 5vw, 4rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 600;
+    margin-bottom: clamp(0.8rem, 2.5vw, 1.2rem);
+}
+.services-hero .services-hero-right-bottom h3 {
+    font-weight: 500;
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    line-height: clamp(2rem, 3vw, 2.3rem);
+    margin-bottom: clamp(0.5rem, 1.5vw, 0.8rem);
+}
+.services-hero .services-hero-right-bottom p {
+    font-weight: 400;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    line-height: clamp(2rem, 3vw, 2.5rem);
+    color: #4C4C4C;
+}
+.services-hero .orangeBtn {
+    margin-top: 3.6rem;
+}
+.delete-big-screen {
+    display: none;
+}
+                                                                                        /*! RESPONSIVE Design  */
+@media (max-width:950px) {
+    .services-hero .services-hero-right-bottom {
+        display: grid;
+        grid-template-columns: 1fr; 
+        gap: clamp(2rem, 2vw, 4.2rem); 
+        width: 100%; 
+    }
+}
+@media (max-width: 768px) {
+    .services-hero .services-hero-all {
+        grid-template-columns: 1fr; 
+        gap: clamp(2rem, 5vw, 3.2rem); 
+        background-color: var( --Secondary);
+        padding: clamp(2rem, 4vw, 3.2rem);
+        border-radius: clamp(1rem, 2vw, 1.6rem);
+    }
+    .services-hero .services-left-hero {
+        grid-area:  unset;
+        max-width: 100%;
+        min-width: 60%;
+        height: min(100%, 44.8rem);
+        border-radius: .8rem;
+        overflow: hidden;
+        align-self: center;
+    }
+    .services-hero-all > *:not(.services-left-hero) {
+        grid-column: unset;
+    }
+    .services-hero-right-top{
+        grid-row: 1 / 2;
+    }
+}
+@media (max-width: 375px) {
+    .ser-but{
+        grid-row: 3 / 4;
+    }
+    .ser-but button {
+        width: 100%;
+    }
+}

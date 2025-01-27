@@ -1,0 +1,51 @@
+.services-title-container .services-title-heading {
+    border-bottom: 1.5px solid var(--BorderColor);
+    width: 100%;
+    padding-bottom: clamp(1.5rem, 2%, 2rem);
+    margin: 0;
+    margin-top: clamp(3rem, 8%, 5rem);
+}
+.services-title-container .services-title-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: clamp(2rem, 6%, 4rem);
+    margin-bottom: clamp(2rem, 6%, 4rem);
+}
+.services-title-container .services-title-content .services-title-subheading {
+    font-weight: 600;
+    font-size: clamp(2rem, 4%, 3.2rem);
+    width: 60%;
+}
+.services-title-container .services-title-content .services-title-description {
+    font-weight: 400;
+    font-size: clamp(1.4rem, 3%, 1.8rem);
+    line-height: clamp(2rem, 5%, 2.9rem);
+}
+                                                                    /*! Respnsive Design  */
+@media (max-width: 768px) {
+    .services-title-container .services-title-content {
+        flex-direction: column;
+        margin-top: 2.4rem;
+        margin-bottom: 3.2rem;
+    }
+    .services-title-container .services-title-content .services-title-subheading {
+       font-size: 2.6rem;
+       width: 100%;
+    }
+    .services-title-container .services-title-content .services-title-description {
+        font-size: 1.6rem;
+        font-weight: 500;
+    }
+}
+@media (max-width: 375px) {
+    .services-title-container .services-title-content {
+        margin-bottom: 2.8rem;
+    }
+    .services-title-container .services-title-content .services-title-subheading {
+       font-size: 1.8rem;
+    }
+    .services-title-container .services-title-content .services-title-description {
+        font-size: 1.4rem;
+        font-weight: 400;
+    }
+}

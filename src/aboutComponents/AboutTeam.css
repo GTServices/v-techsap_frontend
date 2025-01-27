@@ -1,0 +1,42 @@
+.about-team{
+    border-top: 1.5px solid var(--BorderColor)   ;
+}
+.about-team h4{
+    background: linear-gradient(86.17deg, #FF3131 3.14%, #FF914D 112.74%);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 1.8rem;
+    margin-bottom: 1.6rem;
+    padding-top: 4rem; 
+}
+.about-team p{
+    font-weight: 600;
+    font-size: 3.2rem;
+    margin-bottom: 4rem;
+}
+                                                                                        /*! RESPONSOVE Design  */
+@media(max-width:768px){
+    .about-team h4{
+        margin-bottom: 1.8rem;
+        font-size: 1.8rem;
+        padding-top: 2.4rem;
+    }
+    .about-team p{
+        font-size: 1.8rem;
+        margin-bottom: 2.4rem;
+    }
+
+}
+@media(max-width:375px){
+    .about-team h4{
+        margin-bottom: 1.2rem;
+        font-size: 1.4rem;
+        padding-top: 1.2rem;
+    }
+    .about-team p{
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        line-height: 2.5rem;
+    }
+
+}

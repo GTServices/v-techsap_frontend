@@ -1,0 +1,40 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 4rem;
+    margin-bottom: 10rem;
+  }
+  
+  .pagination-btn {
+    color: var(--Black_Color);
+    padding: 1.6rem 1.8rem;
+    font-size: 1.6rem;
+    border: none;
+    outline: none;
+    background-color: var( --White);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: .4rem;
+  }
+  
+  .pagination-btn.active {
+    background-color: var(--PrimaryColor_1);
+    color: var( --White);
+    border-color: #007bff;
+  }
+  
+  .pagination-btn:disabled {
+    background-color: var(--Secondary);
+    cursor: not-allowed;
+    color: #808080;
+    
+  }
+  
+
+  @media (max-width:768px){
+    .pagination{
+      margin-bottom: 0;
+    }
+  }

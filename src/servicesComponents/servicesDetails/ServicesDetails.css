@@ -1,0 +1,25 @@
+.services-hero-detail{
+    text-align: center;
+    padding-top: 4rem;
+}
+.services-hero-detail h3 {
+    background: linear-gradient(90deg, #FF914D, #FF3131);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.6rem;
+}
+.services-hero-detail h4{
+    font-size: 3.2rem;
+    font-weight: 600;
+    margin-bottom: 4rem;
+}
+.services-details .costumer-for-detail{
+margin-bottom: 12rem;
+}
+.services-details .ser-card-but{
+    text-align: center;
+    margin-top: 2.4rem;
+    margin-bottom: 10rem;
+}

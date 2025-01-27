@@ -1,0 +1,584 @@
+  {
+  "ser-home": [
+    {
+      "id": 1,
+      "title": "IT xidmətləri",
+      "description": "Şirkətinizin İT infrastrukturunu (server, kompüter, şəbəkə) və IT servislərini (E-mail, veb sayt, ERP) MAXTEXNO-ya...",
+      "imgSrc": "/Frame 31.png"
+    },
+    {
+      "id": 2,
+      "title": "Kiber Təhlükəsizlik",
+      "description": "Məlumatlarınızı qorumaq üçün müasir kiber təhlükəsizlik həllərini təqdim edirik...",
+      "imgSrc": "/frame-1.png"
+    },
+    {
+      "id": 3,
+      "title": "Bulud Xidmətləri",
+      "description": "Bulud həlləri ilə məlumatlarınızı hər yerdən təhlükəsiz və rahat əldə edin...",
+      "imgSrc": "/frame-1.png"
+    },
+    {
+      "id": 4,
+      "title": "Məlumat Analitikası",
+      "description": "Məlumatlarınızın analitikası ilə işinizi daha effektiv idarə edin...",
+      "imgSrc": "/frame-1.png"
+    },
+    {
+      "id": 5,
+      "title": "Proqram Təminatı",
+      "description": "İş ehtiyaclarınıza uyğun xüsusi proqram təminatları təqdim edirik...",
+      "imgSrc": "/about-home.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Texniki Dəstək",
+      "description": "Hər an texniki dəstək göstərərək işinizin fasiləsiz davam etməsini təmin edirik...",
+      "imgSrc": "/frame-1.png"
+    }
+  ],
+      "products": [
+        {
+          "id": 1,
+          "title": "iPhone 14 Pro",
+          "category": "Telefonlar",
+          "description": "Apple iPhone 14 Pro - güclü A16 Bionic çipi, ProMotion texnologiyası və üçlü kamera sistemi ilə.",
+          "imgSrc": [
+            "./public/card-1.png",
+            "./public/phone-1.png",
+            "./public/card-3.png"
+          ],
+          "specs": {
+            "yaddas": "128 GB / 256 GB / 512 GB",
+            "anten": "Wi-Fi 6, 5G",
+            "olculer": "147 x 71.5 x 7.85 mm",
+            "prosessor": "A16 Bionic Chip"
+          }
+        },
+        {
+          "id": 2,
+          "title": "Samsung Galaxy S23 Ultra",
+          "category": "Telefonlar",
+          "description": "Samsung Galaxy S23 Ultra - Dynamic AMOLED 2X ekranı və S Pen dəstəyi ilə mükəmməl təcrübə təqdim edir.",
+          "imgSrc": [
+            "./public/sam-1.png",
+            "./public/sam-2.png",
+             "./public/sam-3.png"
+          ],
+          "specs": {
+            "yaddas": "256 GB / 512 GB / 1 TB",
+            "anten": "Wi-Fi 6E, 5G",
+            "olculer": "163.4 x 78.1 x 8.9 mm",
+            "prosessor": "Snapdragon 8 Gen 2"
+          }
+        },
+        {
+          "id": 3,
+          "title": "Asus ROG Zephyrus G14",
+          "category": "Komputerlər",
+          "description": "Asus ROG Zephyrus G14 - AMD Ryzen 9 prosessoru və NVIDIA GeForce RTX 4060 GPU ilə oyunçular üçün ideal seçimdir.",
+          "imgSrc": [
+            "./public/asus-1.png",
+            "./public/asus-2.png",
+            "./public/asus-3.png"
+          ],
+          "specs": {
+            "yaddas": "16 GB DDR5",
+            "anten": "Wi-Fi 6E",
+            "olculer": "324 x 222 x 19.9 mm",
+            "prosessor": "AMD Ryzen 9 7940HS"
+          }
+        },
+        {
+          "id": 4,
+          "title": "Xiaomi 13 Pro",
+          "category": "Telefonlar",
+          "description": "Xiaomi 13 Pro - Leica kamera sistemi və 120W sürətli şarj texnologiyası ilə ən yüksək performansı təmin edir.",
+          "imgSrc": [
+            "./public/xia-1.png",
+              "./public/xia-2.png",
+              "./public/xia-3.png"
+          ],
+          "specs": {
+            "yaddas": "256 GB / 512 GB",
+            "anten": "Wi-Fi 6E, 5G",
+            "olculer": "162.9 x 74.6 x 8.4 mm",
+            "prosessor": "Snapdragon 8 Gen 2"
+          }
+        },
+        {
+          "id": 5,
+          "title": "MacBook Air M2",
+          "category": "Komputerlər",
+          "description": "MacBook Air M2 - Apple-ın yüngül noutbuku, güclü M2 çipi və Retina ekranı ilə təchiz edilmişdir.",
+          "imgSrc": [
+            "./public/mac-1.png",
+            "./public/mac-2.png",
+            "./public/mac-3.png"
+          ],
+          "specs": {
+            "yaddas": "256 GB / 512 GB / 1 TB",
+            "anten": "Wi-Fi 6",
+            "olculer": "304.1 x 215 x 11.3 mm",
+            "prosessor": "Apple M2"
+          }
+        },
+        {
+          "id": 6,
+          "title": "Lenovo ThinkPad X1 Carbon",
+          "category": "Komputerlər",
+          "description": "Lenovo ThinkPad X1 Carbon - Intel Evo sertifikatlı premium ultrabook, yüngül və güclü dizaynı ilə fərqlənir.",
+          "imgSrc": [
+            "./public/len-1.png",
+            "./public/len-2.png",
+             "./public/len-3.png"
+          ],
+          "specs": {
+            "yaddas": "512 GB / 1 TB SSD",
+            "anten": "Wi-Fi 6E",
+            "olculer": "315.6 x 222.5 x 14.9 mm",
+            "prosessor": "Intel Core i7-1360P"
+          }
+        }
+      ],
+      "categories": [
+        {
+          "id": 1,
+          "name": "Telefonlar",
+          "description": "Ən son texnologiyalar və inkişaf etmiş funksiyalarla smartfonlar."
+        },
+        {
+          "id": 2,
+          "name": "Komputerlər",
+          "description": "Şəxsi və peşəkar istifadə üçün yüksək performanslı noutbuklar və masaüstü kompüterlər."
+        }
+      ],
+        "customers": [
+          {
+            "id": 1,
+            "image": "../public/slide-1.png"
+          },
+          {
+            "id": 2,
+            "image": "../public/prob.png"
+          },
+          {
+            "id": 3,
+           "image": "../public/slide-3.png"
+          },
+          {
+            "id": 4,
+            "image": "../public/slide-4.png"
+          },
+          {
+            "id": 5,
+            "image": "../public/slide-5.png"
+          },
+          {
+            "id":6,
+            "image": "../public/slide-1.png"
+          },
+          {
+            "id":7,
+            "image": "../public/prob.png"
+          },
+          {
+            "id":8,
+            "image": "../public/slide-3.png"
+          },
+          {
+            "id":9,
+            "image": "../public/slide-4.png"
+          },
+          {
+            "id":11,
+            "image": "../public/slide-5.png"
+          },
+          {
+            "id":12,
+            "image": "../public/slide-5.png"
+          },
+          {
+            "id":14,
+            "image": "../public/slide-5.png"
+          },
+          {
+            "id":15,
+            "image": "./public/slide-5.png"
+          },
+          {
+            "id":16,
+            "image": "./public/slide-5.png"
+          },
+          {
+            "id":17,
+            "image": "./public/slide-5.png"
+          }
+        ],
+        "comments": [
+          {
+            "id": 1,
+            "name": "Ramiz İsayev",
+            "position": "Redmark Agency / CEO",
+            "image": "./public/man.png",
+            "text": "Müştəriniz olaraq bizimlə əməkdaşlıq etmək çox rahat və effektli oldu. Layihəmizin hər mərhələsində innovativ yanaşma və diqqətli dəstək göstərdiniz. Xidmət keyfiyyəti və zamanında yerinə yetirilmə xüsusilə təsirli idi – nəticədə gözləntilərimizi dəfələrlə üstələdiniz. Təşəkkürlər!"
+          },
+          {
+            "id": 2,
+            "name": "Leyla Məmmədova",
+            "position": "XYZ Studio / Designer",
+            "image": "./public/man.png",
+            "text": "Çox yaxşı iş! Komandanızın peşəkarlığı və dəqiqliyi bizi çox məmnun etdi. Layihə prosesində hər detalı diqqətlə nəzərə aldınız. Əməkdaşlıq üçün sizi tövsiyə edirəm!"
+          },
+          {
+            "id": 3,
+            "name": "Elçin Əliyev",
+            "position": "Alpha Group / Developer",
+            "image": "./public/man.png",
+            "text": "Sizinlə işləmək çox böyük bir zövq idi. Yaradıcı yanaşmanız və yüksək keyfiyyətli işləriniz sayəsində layihəmiz uğurla tamamlandı. Çox sağ olun!"
+          },
+          {
+            "id": 4,
+            "name": "Rəna Quliyeva",
+            "position": "TechSolutions / Product Manager",
+            "image": "./public/man.png",
+            "text": "Hər şey mükəmməl idi! Sizinlə əməkdaşlıq edərək çox şey öyrəndik. Yaxşı idarə olunan layihələriniz və dəstəyiniz bizim üçün çox qiymətlidir."
+          },
+          {
+            "id": 5,
+            "name": "Tunar Əhmədov",
+            "position": "NextGen Studios / CTO",
+            "image": "./public/man.png",
+            "text": "Hər bir detallı mükəmməl şəkildə işləmişsiniz. Komandanızla əməkdaşlıq etmək çox xoş idi. Bizimlə olan təcrübəniz çox dəyərlidir!"
+          },
+          {
+            "id": 6,
+            "name": "Kamran Hüseynov",
+            "position": "Digital Ventures / Project Manager",
+            "image": "./public/man.png",
+            "text": "Çox peşəkar yanaşma və mükəmməl xidmət. Hər şey çox yaxşı keçdi, hər zaman təkliflərinizi və dəstəyinizi yüksək qiymətləndiririk."
+          },
+          {
+            "id": 7,
+            "name": "Məmməd Məmmədov",
+            "position": "WebWorks / CEO",
+            "image": "./public/man.png",
+            "text": "Sizinlə işləmək böyük bir təcrübə idi. Sizin təklif etdiyiniz həllər çox innovativ və səmərəli oldu. Layihəmizin hər addımında peşəkar yanaşmanızı çox bəyəndik."
+          },
+          {
+            "id": 8,
+            "name": "Zəhra Qasımova",
+            "position": "Marketing Solutions / Marketing Manager",
+            "image": "./public/man.png",
+            "text": "Sizinlə əməkdaşlıq etmək çox məmnuniyyət vericidir. Komandanızın hər bir üzvü ilə işləmək böyük zövq idi. Bizim gözləntilərimizi aşdınız."
+          },
+          {
+            "id": 9,
+            "name": "Samir Rəsulov",
+            "position": "TechLab / CTO",
+            "image": "./public/man.png",
+            "text": "Çox peşəkar yanaşma və əla təkliflər. Layihəmizin müvəffəqiyyətlə tamamlanmasında sizin dəstəyiniz böyük rol oynadı."
+          },
+          {
+            "id": 10,
+            "name": "Rüfət Əliyev",
+            "position": "GreenTech / Project Manager",
+            "image": "./public/man.png",
+            "text": "Layihənin hər mərhələsində yüksək səviyyəli iş gördünüz. Çox minnətdarıq, hər zaman sizinlə işləməkdən məmnun olacağıq."
+          },
+          {
+            "id": 11,
+            "name": "Aytən Hüseynova",
+            "position": "Creative Media / Director",
+            "image": "./public/man.png",
+            "text": "Komandanızla işləmək bizim üçün çox dəyərli idi. Sizinlə əməkdaşlıq edən hər bir layihə çox uğurlu oldu. Təşəkkür edirəm!"
+          },
+          {
+            "id": 12,
+            "name": "Fərid Zeynallı",
+            "position": "SmartTech / CEO",
+            "image": "./public/man.png",
+            "text": "Sizinlə əməkdaşlıq zamanı əldə etdiyimiz nəticələr çox müsbət oldu. Peşəkar yanaşmanızı çox bəyəndik və gələcəkdə daha çox əməkdaşlıq etmək istəyirik."
+          },
+          {
+            "id": 13,
+            "name": "Əli Məmmədov",
+            "position": "Innovative Solutions / Founder",
+            "image": "./public/man.png",
+            "text": "Çox müsbət təcrübə yaşadıq. Komandanızın peşəkarlığı və işə olan diqqəti bizim üçün çox qiymətlidir. Təklif etdiyiniz həllər layihəmizi çox daha səmərəli etdi."
+          },
+          {
+            "id": 14,
+            "name": "Vüsal Quluzadə",
+            "position": "NextStep / Head of Operations",
+            "image": "./public/man.png",
+            "text": "Çox faydalı və məhsuldar bir əməkdaşlıq oldu. Layihəmizin hər mərhələsində göstərdiyiniz dəstək bizim üçün çox əhəmiyyətli idi. Sizinlə yenidən işləmək üçün səbirsizlənirik."
+          }
+        ],
+        "partners": [
+    {
+      "id": 1,
+       "image": "./public/slide-1.png"
+    },
+    {
+      "id": 2,
+       "image": "./public/prob.png"
+    },
+    {
+      "id": 3,
+         "image": "./public/slide-3.png"
+    },
+    {
+      "id": 4,
+       "image": "./public/slide-4.png"
+    },
+    {
+      "id": 5,
+       "image": "./public/slide-5.png"
+    },
+    {
+      "id": 6,
+      "image": "./public/prob.png"
+    },
+    {
+      "id": 7,
+       "image": "./public/slide-1.png"
+    },
+    {
+      "id": 8,
+     "image": "./public/prob.png"
+    }
+  ],
+  "aboutHero": {
+    "title": "HAQQIMIZDA",
+    "subtitle": "Yeniliklərə Yol Açan, Dəyərlərə Söykənən Bir Komanda",
+    "description": "Biz, texnologiyanın ən qabaqcıl həllərini təqdim edən, müştərilərimizin ehtiyaclarını dərk edən və hər layihədə fərdi yanaşma göstərən bir texnoloji şirkətik. Hər zaman müştəri məmnuniyyətinə önəm verərək, əməkdaşlığımızda qarşılıqlı etimada əsaslanan birgə inkişaf hədəfləyirik. Yüksək keyfiyyət, peşəkarlıq və daim yenilənən innovasiyaları təqdim etmək üçün sadiq bir komandayıq. İşimizin hər mərhələsində, müştəri tələb və gözləntilərini aşmağa can atırıq. Müasir dizayn, inkişaf və təhlükəsizlik sahəsində mükəmməlliyi daim yüksəltmək bizim prioritetimizdir. Bizimlə gələcəyin texnologiyasını indi yaşayın.",
+    "stats": [
+      {
+        "num": "4",
+        "text": "İllik təcrübə"
+      },
+      {
+        "num": "25",
+        "text": "Lahiyələrimizin sayı"
+      },
+      {
+        "num": "300",
+        "text": "Müştərilərimizin sayı"
+      },
+      {
+        "num": "0",
+        "text": "Komanda Sayı"
+      }
+    ],
+    "images": {
+      "mainImage": {
+        "src": "/abouthero.png",
+        "alt": "Bizim haqqımızda"
+      },
+      "gameImage": {
+        "src": "/totalgame.png",
+        "alt": "Total Game"
+      }
+    }
+  },
+    "aboutInfo": {
+    "header": "Dəyərlərimiz",
+    "subtitle": "Dəyərlərimizlə Fərqlənirik!",
+    "description": "Hər işimizdə keyfiyyət, etibarlılıq və innovasiyaya əsaslanırıq. Müştərilərimizə davamlı dəyər yaratmaq əsas məqsədimizdir.",
+    "content": [
+      {
+        "id": 1,
+        "imageSrc": "../../public/icon-3.png",
+        "imageAlt": "Icon 1",
+        "header": "Müştəri Məmnuniyyəti Zəmanətimiz",
+        "description": "Müştərilərimizin ehtiyaclarına uyğun fərdi və etibarlı həllər təqdim edirik."
+      },
+      {
+        "id": 2,
+        "imageSrc": "../../public/icon-3.png",
+        "imageAlt": "Icon 2",
+        "header": "Yüksək Keyfiyyət",
+        "description": "Hər zaman ən yüksək keyfiyyəti təmin etmək əsas prioritetimizdir."
+      },
+      {
+        "id": 3,
+        "imageSrc": "../../public/icon-3.png",
+        "imageAlt": "Icon 3",
+        "header": "İnnovativ Həllər",
+        "description": "Biz hər zaman yeni və yaradıcı həllər təqdim etməyə çalışırıq."
+      }
+    ],
+    "rightImage": {
+      "imageSrc": "../../public/about-right.png",
+      "imageAlt": "About Right"
+    }
+  },
+  "teamCards": [
+    {
+      "id": 1,
+      "name": "İlqar İsayev",
+      "position": "Chief Product Officer",
+      "imageUrl": "./public/forcard-1.jpg",
+      "linkedin": "https://linkedin.com/in/ilqar-isayev"
+    },
+    {
+      "id": 2,
+      "name": "Nigar Məmmədova",
+      "position": "Marketing Manager",
+      "imageUrl": "./public/girll-1.jpg",
+      "linkedin": "https://linkedin.com/in/nigar-mammadova"
+    },
+    {
+      "id": 3,
+      "name": "Fərid Həsənov",
+      "position": "Software Engineer",
+      "imageUrl": "./public/mannn.jpg",
+      "linkedin": "https://linkedin.com/in/farid-hasanov"
+    },
+    {
+      "id": 4,
+      "name": "Aygün Əliyeva",
+      "position": "UI/UX Designer",
+      "imageUrl": "./public/girl-3.jpg",
+      "linkedin": "https://linkedin.com/in/aygun-aliyeva"
+    },
+    {
+      "id": 5,
+      "name": "Elvin Quliyev",
+      "position": "Data Analyst",
+      "imageUrl": "./public/forcard-1.jpg",
+      "linkedin": "https://linkedin.com/in/elvin-quliyev"
+    },
+    {
+      "id": 6,
+      "name": "Leyla Hüseynova",
+      "position": "HR Specialist",
+      "imageUrl": "./public/forcard-1.jpg",
+      "linkedin": "https://linkedin.com/in/leyla-huseynova"
+    },
+    {
+      "id": 7,
+      "name": "Cavid Məmmədov",
+      "position": "Operations Manager",
+      "imageUrl": "./public/forcard-1.jpg",
+      "linkedin": "https://linkedin.com/in/cavid-mammadov"
+    },
+    {
+      "id": 8,
+      "name": "Günay Qasımova",
+      "position": "Project Manager",
+      "imageUrl": "./public/forcard-1.jpg",
+      "linkedin": "https://linkedin.com/in/gunay-qasimova"
+    },
+    {
+      "id": 9,
+      "name": "Murad Əhmədov",
+      "position": "Frontend Developer",
+      "imageUrl": "./public/forcard-1.jpg",
+      "linkedin": "https://linkedin.com/in/murad-ahmedov"
+    },
+    {
+      "id": 10,
+      "name": "Kamran Əliyev",
+      "position": "Backend Developer",
+      "imageUrl": "./public/forcard-1.jpg",
+      "linkedin": "https://linkedin.com/in/kamran-aliyev"
+    }
+  ],
+  "contact": {
+  "heading": "ƏLAQƏ",
+  "title": "Bizimlə Əlaqə Saxlayın!",
+  "description": "Sizə dəstək olmaq üçün hər zaman buradayıq. Əlaqə vasitələrimizdən istifadə edərək bizə müraciət edin.",
+  "cards": [
+    {
+      "icon": "MdMailOutline",
+      "title": "Email ünvanımız",
+      "subtitle": "Dostcanlı komandamızla əlaqə saxlayın.",
+      "email": "vtechsap@gmail.com"
+    },
+    {
+      "icon": "FaPhoneAlt",
+      "title": "Bizim nömrəmiz",
+      "subtitle": "Telefon vasitəsilə bizimlə əlaqə saxlayın.",
+      "email": "+994 50 123 45 67"
+    },
+    {
+      "icon": "IoLocationSharp",
+      "title": "Ofis ünvanımız",
+      "subtitle": "Bizim ofisimizə baş çəkin.",
+      "email": "Bakı şəhəri, Azərbaycan"
+    }
+  ]
+},
+  "servicesHero": {
+    "leftHero": {
+      "image": "/hero-ser.png",
+      "altText": "Hero image"
+    },
+    "rightHero": {
+      "top": {
+        "title": "Biznesiniz Üçün Hərtərəfli və Yenilikçi İT Xidmətləri",
+        "description": "Texnologiya, təhlükəsizlik və proqram təminatı sahələrində fərdi həllər təqdim edərək rəqəmsal uğurunuza dəstək oluruq."
+      },
+      "bottom": [
+        {
+          "id": 1,
+          "number": "1",
+          "title": "Texnoloji İnnovasiya ilə Dəyişin",
+          "description": "Bizim İT həllərimiz biznesinizin məhsuldarlığını artırmaq və fəaliyyətinizi optimallaşdırmaq üçün fərdi yanaşma ilə hazırlanmışdır."
+        },
+        {
+          "id": 2,
+          "number": "12",
+          "title": "Texnoloji İnnovasiya ilə Dəyişin",
+          "description": "Bizim İT həllərimiz biznesinizin məhsuldarlığını artırmaq və fəaliyyətinizi optimallaşdırmaq üçün fərdi yanaşma ilə hazırlanmışdır."
+        }
+      ]
+    }
+  },
+  "services-detail-info": [
+    {
+      "id": 1,
+      "title": "Artan Məhsuldarlıq",
+      "description": "İT həllərimiz proseslərinizi daha səmərəli idarə etməyə və əməliyyatları sürətləndirməyə kömək edir, bu da ümumi məhsuldarlığı artırır.",
+      "backgroundColor": "lightgray"
+    },
+    {
+      "id": 2,
+      "title": "Digər Faydalar",
+      "description": "Həmçinin, iş mühitində təhlükəsizlik və çevikliyi artırır, əməkdaşlarınız üçün daha yaxşı bir təcrübə təmin edir.",
+      "backgroundColor": "lightblue"
+    },
+    {
+      "id": 3,
+      "title": "Təhlükəsiz İş Mühiti",
+      "description": "İT həllərimiz mühitinizi təhlükəsiz və müdafiəli edir, məlumatların qorunması və qeyri-şəffaflıq qarşısını alır.",
+      "backgroundColor": "lightgreen"
+    },
+    {
+      "id": 4,
+      "title": "Çeviklik və Yenilik",
+      "description": "Proseslərinizi daha çevik hala gətiririk, texnologiyanın yeniliklərini tətbiq edərək işinizi sürətləndiririk.",
+      "backgroundColor": "lightcoral"
+    },
+    {
+      "id": 5,
+      "title": "Daha İyi Təcrübə",
+      "description": "İT xidmətlərimiz istifadəçi təcrübəsini artırır, əməkdaşlarınızın gündəlik işlərini daha asanlaşdırır.",
+      "backgroundColor": "lightyellow"
+    }
+  ]
+
+
+
+      
+    
+    
+      
+      
+    
+    
+    
+  }
+  

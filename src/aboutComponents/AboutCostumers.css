@@ -1,0 +1,33 @@
+.about-costumers{
+    margin-top: 12rem;
+  
+}
+.about-costumers .about-costumers-title{
+    text-align: center;
+    
+}
+.about-costumers .gradient-heading{
+    font-size: 1.8rem;
+    margin-bottom: 1.6rem;
+    
+}
+.about-costumers p{
+    font-weight: 600;
+    font-size: 3.2rem;
+    line-height: 4.1rem;
+    margin-bottom: 4rem;
+}
+.about-costumers .costumersButton .orangeBtn{
+    width: 14.6rem;
+}
+@media (max-width:762px){
+    .about-costumers p{
+        font-size: 2.6rem;
+    }
+}
+@media (max-width:375px){
+    .about-costumers .gradient-heading{
+        font-size: 1.4rem;
+    
+    }
+}
