@@ -3,40 +3,116 @@ import { MdMailOutline } from "react-icons/md";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
 import "./ContactHead.css";
+import { useSelector } from "react-redux";
 
 const ContactHead = React.memo(() => {
-  const [contactData, setContactData] = useState(null);
+  const selectedLanguage = useSelector((state) => state.tech.language);
+  const BASE_URL = useSelector((state) => state.tech.BASE_URL);
+
+  const [contactData, setContactData] = useState({});
+  const [contacts, setContacts] = useState({});
+  const [staticText, setStaticText] = useState({});
+  const [heroImage, setHeroImage] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchContactData = async () => {
-      try {
-        const response = await fetch("/db.json");
-        const data = await response.json();
-        setContactData(data.contact);
-      } catch (error) {
-        setError("Error fetching data");
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchContactData();
-  }, []); 
-  const renderIcon = useCallback((icon) => {
-    switch (icon) {
-      case "MdMailOutline":
-        return <MdMailOutline className="contact-icon" />;
-      case "FaPhoneAlt":
-        return <FaPhoneAlt className="contact-icon" />;
-      case "IoLocationSharp":
-        return <IoLocationSharp className="contact-icon" />;
-      default:
-        return null;
+  const getText = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/customText/getDatas?lang=${selectedLanguage}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify([
+          "contact-hero-title", 
+          "contact-hero-desc",
+          "contact-email-title",
+          "contact-email-desc",
+          "contact-phone-title",
+          "contact-phone-desc",
+          "contact-address-title",
+          "contact-address-desc",
+        ]),
+      });
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setContactData(data);
+    } catch (error) {
+      setError("Error fetching data");
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
-  }, []); 
+  };
+
+  const getStaticText = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/staticText/getDatas?lang=${selectedLanguage}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify([
+          "contact", 
+          "main-address"
+        ]),
+      });
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setStaticText(data);
+    } catch (error) {
+      setError("Error fetching data");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const getHeroImage = async () => {
+    try{
+      const response = await fetch(`${BASE_URL}/staticImage/contact-hero`)
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setHeroImage(data.image)
+    } catch {
+      setError("Error fetching data");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const getContacts = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/setting/getDatas`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify([
+          "phone", 
+          "email",
+          "address"
+        ]),
+      });
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setContacts(data);
+    } catch (error) {
+      setError("Error fetching data");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getText();
+    getStaticText();
+    getHeroImage();
+    getContacts();
+  }, [selectedLanguage]); 
 
   if (loading) {
     return <div>Yüklənir...</div>;
@@ -46,36 +122,42 @@ const ContactHead = React.memo(() => {
     return <div>{error}</div>;
   }
 
-  const { heading, title, description, cards } = contactData;
 
   return (
     <div className="contact-head">
-      <h3 className="contact-heading gradient-heading">{heading}</h3>
+      <h3 className="contact-heading gradient-heading">{staticText.contact}</h3>
 
       <div className="contact-content">
         <img
-          src="/public/cont.jpg"
+          src={heroImage}
           alt="Contact Background"
           className="contact-background-image"
         />
 
         <div className="contact-overlay">
           <div className="contact-head-title">
-            <h3 className="contact-title">{title}</h3>
-            <p className="contact-description">{description}</p>
+            <h3 className="contact-title">{contactData["contact-hero-title"]}</h3>
+            <p className="contact-description">{contactData["contact-hero-desc"]}</p>
           </div>
           <div className="contact-cards">
-            {cards.map((card, index) => {
-              const { icon, title, subtitle, email } = card;
-              return (
-                <div className="contact-card" key={index}>
-                  {renderIcon(icon)} 
-                  <h4 className="contact-card-title">{title}</h4>
-                  <p className="contact-card-subtitle">{subtitle}</p>
-                  <p className="contact-card-email">{email}</p>
-                </div>
-              );
-            })}
+            <div className="contact-card">
+              <MdMailOutline className="contact-icon" />
+              <h4 className="contact-card-title">{contactData["contact-email-title"]}</h4>
+              <p className="contact-card-subtitle">{contactData["contact-email-desc"]}</p>
+              <p className="contact-card-email">{contacts["email"]}</p>
+            </div>
+            <div className="contact-card">
+              <FaPhoneAlt className="contact-icon" /> 
+              <h4 className="contact-card-title">{contactData["contact-phone-title"]}</h4>
+              <p className="contact-card-subtitle">{contactData["contact-phone-desc"]}</p>
+              <p className="contact-card-email">{contacts["phone"]}</p>
+            </div>
+            <div className="contact-card">
+              <IoLocationSharp className="contact-icon" /> 
+              <h4 className="contact-card-title">{contactData["contact-address-title"]}</h4>
+              <p className="contact-card-subtitle">{contactData["contact-address-desc"]}</p>
+              <p className="contact-card-email">{staticText["main-address"]}</p>
+            </div>
           </div>
         </div>
       </div>

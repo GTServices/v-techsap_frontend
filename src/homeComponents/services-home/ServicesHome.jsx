@@ -5,9 +5,9 @@ import OrangeBTN from "../../components/Buttons/OrangeBTN";
 import ServicesHomeHead from "./ServicesHomeHead";
 import ServicesHomeCard from "./ServicesHomeCard";
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useSelector } from "react-redux";
 
 function ServicesHome() {
-  const [services, setServices] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [miniMobile, setMiniMobile] = useState(window.innerWidth < 375);
   const [error, setError] = useState(null);
@@ -21,33 +21,56 @@ function ServicesHome() {
     "var(--Creamy_Almond)",
   ];
 
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1)
+
+  const [services, setServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); 
+  const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
+  const selectedLanguage = useSelector((state) => state.tech.language); 
+
+  const fetchServices = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${BASE_URL}/service?perPage=6&page=${currentPage}&lang=${selectedLanguage}`);
+      if (!response.ok) {
+        throw new Error("Xidmətlər məlumatı alınarkən xəta baş verdi");
+      }
+      const result = await response.json();      
+      setTotalPages(result.pageCount);
+      setServices(result.data); 
+    } catch (error) {
+      console.error("Xəta:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchServices();
+
+  }, [BASE_URL, selectedLanguage, currentPage]);
+
+  function handlePrewServices () {
+    if (currentPage > 1) {
+      setCurrentPage(prew => prew - 1)
+    }
+  }
+
+  function handleNextServices () {
+    if (currentPage < totalPages) {
+      setCurrentPage(prew => prew + 1)
+    }
+  }
+
+
   const handleResize = useCallback(() => {
     setIsMobile(window.innerWidth <= 768);
     setMiniMobile(window.innerWidth < 375);
   }, []);
 
   useEffect(() => {
-    fetch("/db.json")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Data loading failed");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data && Array.isArray(data["ser-home"])) {
-          setServices(data["ser-home"]);
-        } else {
-          console.error("Invalid data format received", data);
-          setServices([]);
-        }
-      })
-      .catch((error) => {
-        console.error("An error occurred:", error);
-        setError("Failed to load services. Please try again later.");
-        setServices([]);
-      });
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
@@ -64,12 +87,12 @@ function ServicesHome() {
       )}
       {miniMobile ? (
         <div className="ser-home-btn">
-          <button className="orangeBtn">Daha Cox</button>
+          {/* <button className="orangeBtn">Daha Cox</button> */}
         </div>
       ) : (
         <div className="left-right-btns">
-      <i><FaArrowLeft /></i>
-      <i className="right-arrow"><FaArrowRight /></i>
+      <i onClick={handlePrewServices}><FaArrowLeft /></i>
+      <i onClick={handleNextServices} className="right-arrow"><FaArrowRight /></i>
     </div>
       )}
     </section>

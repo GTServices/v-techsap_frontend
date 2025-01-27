@@ -1,45 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux"; 
 import "../servicesDetails/ServicesHero.css";
+import { Link } from "react-router-dom";
 
-function ServicesHero() {
-  const [heroData, setHeroData] = useState(null);
-  const [error, setError] = useState(null);
+function ServicesHero({serviceData}) {
   const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
   const language = useSelector((state) => state.tech.language); 
-const selectedLanguage = useSelector((state) => state.tech.language);
+  const selectedLanguage = useSelector((state) => state.tech.language);
+  const [buttonText, setButtonText] = useState("")
+
   useEffect(() => {
-    fetch(`${BASE_URL}/service/1?lang=${selectedLanguage}`)
+    fetch(`${BASE_URL}/staticText/apply?lang=${selectedLanguage}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Failed to fetch data from server: ${response.statusText}`);
-        }
-        const contentType = response.headers.get("Content-Type");
-        if (!contentType || !contentType.includes("application/json")) {
-          throw new Error("Expected JSON response but got something else");
+          throw new Error(`Failed to fetch data from server`);
         }
         return response.json(); 
       })
       .then((data) => {
-        console.log("Fetched Data:", data); 
-        setHeroData(data); 
+        setButtonText(data.value); 
       })
       .catch((error) => {
-        setError(error.message); 
         console.error("Xəta:", error);
       });
   }, [BASE_URL, language]); 
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
 
-  if (!heroData) {
+  if (!serviceData) {
     return <div>Yüklənir...</div>; 
   }
 
 
-  const { image, title, shortDesc, desc, specs,subTitle } = heroData;
+  const { image, title, desc, specs,subTitle } = serviceData;
 
   return (
     <div className="services-hero container">
@@ -81,7 +76,7 @@ const selectedLanguage = useSelector((state) => state.tech.language);
 
    
         <div className="ser-but">
-          <button className="orangeBtn">Müraciət et</button>
+          <Link to="/contact" className="orangeBtn">{buttonText}</Link>
         </div>
       </div>
     </div>

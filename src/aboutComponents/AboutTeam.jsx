@@ -1,22 +1,76 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import AboutTeamCard from './AboutTeamCard';
 import './AboutTeam.css';
+import { useSelector } from 'react-redux';
 
 const MemoizedAboutTeamCard = memo(AboutTeamCard);
 
 function AboutTeam() {
+  const [texts, setTexts] = useState("");
+  const [headingText, setHeadingText] = useState("");
+  const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
+  const selectedLanguage = useSelector((state) => state.tech.language);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/customText/about-team-title?lang=${selectedLanguage}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch static text data");
+      }
+      const data = await response.json();
+
+      setHeadingText(data.value || "We grow together with our customers!"); 
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const getStaticText = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/staticText/getDatas?lang=${selectedLanguage}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify([
+          "see-all", 
+          "our-team"
+        ]),
+      });
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setTexts(data);
+    } catch (error) {
+      // setError("Error fetching data");
+      console.error(error);
+    } 
+  }
+  
+  useEffect(() => {
+    if (!BASE_URL) {
+      console.error("BASE_URL is not available in Redux store");
+      return;
+    }
+    
+    fetchData();
+    getStaticText();
+  }, [BASE_URL, selectedLanguage]); 
+
+
+
+
   return (
     <div className="about-team container">
       <div className="about-head">
-        <h4>Komandamız</h4>
-        <p>Yenilikçi və Peşəkar Komandamızla Tanış Olun</p>
+        <h4>{texts["our-team"]}</h4>
+        <p>{headingText}</p>
       </div>
  
       <MemoizedAboutTeamCard />
       <div className="costumersButton">
-        <a href="#">
-          <button className="orangeBtn">Hamısına bax</button>
-        </a>
+        {/* <a href="#">
+          <button className="orangeBtn">{texts["see-all"]}</button>
+        </a> */}
       </div>
     </div>
   );

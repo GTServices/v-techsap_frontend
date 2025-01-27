@@ -56,9 +56,9 @@ function CostumersHome() {
       <CostumerCard />
 
       <div className="costumersButton">
-        <a href="#" onClick={handleSeeAllClick}>
+        {/* <a href="#" onClick={handleSeeAllClick}>
           <button className="orangeBtn">{seeAllText}</button>  
-        </a>
+        </a> */}
       </div>
     </div>
   );

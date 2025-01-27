@@ -8,10 +8,18 @@ import ServicesTopTitle from './ServicesTopTitle';
 import ServicesHomeCard from '../../homeComponents/services-home/ServicesHomeCard';
 import ServicesDetailsInfo from './ServicesDetailsInfo';
 import { useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 
 function ServicesDetails() {
+  const selectedLanguage = useSelector((state) => state.tech.language);
+  const BASE_URL = useSelector((state) => state.tech.BASE_URL);
+  const {slug} = useParams();
+
   const [services, setServices] = useState([]);
+  const [serviceData, setServiceData] = useState([]);
   const [customersTitle, setCustomersTitle] = useState(""); 
+  const [texts, setTexts] = useState({}); 
+  const [customerHeading, setCustomerHeading] = useState(""); 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const colors = [
     "var(--Pale_Blue)",
@@ -22,29 +30,89 @@ function ServicesDetails() {
     "var(--Creamy_Almond)",
   ];
 
-  const selectedLanguage = useSelector((state) => state.tech.language);
-  const BASE_URL = useSelector((state) => state.tech.BASE_URL);
+  const getServices = async () => {
+    try{
+      const response = await fetch(`${BASE_URL}/service?perPage=4&page=1&lang=${selectedLanguage}`)
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setServices(data.data)
+    } catch {
+      setError("Error fetching data");
+      console.error(error);
+    } finally {
+      // setLoading(false);
+    }
+  }
+
+
+  const getServiceData = async () => {
+    try{
+      const response = await fetch(`${BASE_URL}/service/${slug}?lang=${selectedLanguage}`)
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setServiceData(data)
+    } catch {
+      setError("Error fetching data");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const getCustomerHeading = async () => {
+    try{
+      const response = await fetch(`${BASE_URL}/customText/customer-title?lang=${selectedLanguage}`)
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setCustomerHeading(data.value)
+    } catch {
+      // setError("Error fetching data");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const getText = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/staticText/getDatas?lang=${selectedLanguage}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify([
+          "other-services", 
+          "see-all"
+        ]),
+      });
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setTexts(data);
+    } catch (error) {
+      // setError("Error fetching data");
+      console.error(error);
+    } finally {
+      // setLoading(false);
+    }
+  };
+
+
+
+  useEffect(() => {
+    getServiceData();
+    getCustomerHeading();
+    getText();
+    getServices();
+  }, [BASE_URL, selectedLanguage])
+
+console.log(serviceData);
+
 
   const handleResize = useCallback(() => {
     setWindowWidth(window.innerWidth);
   }, []);
 
   useEffect(() => {
-  
-    fetch(`${BASE_URL}/service/2?lang=${selectedLanguage}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data && Array.isArray(data["ser-home"])) {
-          setServices(data["ser-home"]);
-        }
-        if (data && data.customersTitle) {
-          setCustomersTitle(data.customersTitle); 
-        }
-      })
-      .catch((error) => {
-        console.error("An error occurred:", error);
-      });
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [BASE_URL, selectedLanguage, handleResize]); 
@@ -58,27 +126,27 @@ function ServicesDetails() {
   return (
     <div className="services-details">
       <ServicesHomeHead />
-      <ServicesTopTitle />
-      <ServicesHero />
-      <ServicesDetailsInfo />
+      <ServicesTopTitle serviceData={serviceData}/>
+      <ServicesHero serviceData={serviceData}/>
+      <ServicesDetailsInfo serviceData={serviceData}/>
 
       <div className="services-hero-detail">
-        <h3>{customersTitle || "IT xidmətindən istifadə edən müştərilərimiz"}</h3> 
-        <h4>Müştərilərimizlə Birlikdə Böyüyürük!</h4>
+        <h3>{serviceData?.customersTitle || "IT xidmətindən istifadə edən müştərilərimiz"}</h3> 
+        <h4>{customerHeading}</h4>
       </div>
       <div className="costumer-for-detail">
-        <CostumerCard maxCards={5} />
+        <CostumerCard serviceCustomers={serviceData.customers} maxCards={5} />
       </div>
 
       <div className="services-detail-cards container">
-        <h3 className="gradient-heading">Digər Xidmətlər</h3>
+        <h3 className="gradient-heading">{texts["other-services"]}</h3>
         <ServicesHomeCard
           services={services.slice(0, getCardCount())}
           colors={colors}
           isMobile={windowWidth <= 768}
         />
         <div className="ser-card-but">
-          <button className="orangeBtn">Hamısına bax</button>
+          <Link to="/services" className="orangeBtn">{texts["see-all"]}</Link>
         </div>
       </div>
       <ContactUs />

@@ -1,7 +1,17 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import './ContactUs.css';
+import { useSelector } from 'react-redux';
 
 function ContactUs() {
+  const selectedLanguage = useSelector((state) => state.tech.language);
+  const BASE_URL = useSelector((state) => state.tech.BASE_URL);
+
+  const [staticTexts, setStaticTexts] = useState({});
+  const [texts, setTexts] = useState({});
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [formData, setFormData] = useState({
     name: '',
     surname: '',
@@ -18,10 +28,80 @@ function ContactUs() {
     }));
   }, []);
 
+
+  const getStaticText = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/staticText/getDatas?lang=${selectedLanguage}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify([
+          "name", 
+          "surname",
+          "email-address",
+          "phone-number",
+          "message",
+          "apply",
+        ]),
+      });
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setStaticTexts(data);
+    } catch (error) {
+      setError("Error fetching data");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const getTexts = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/customText/getDatas?lang=${selectedLanguage}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify([
+          "contact-title",
+          "contact-subtitle", 
+          "contact-desc"
+        ]),
+      });
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setTexts(data);
+    } catch (error) {
+      setError("Error fetching data");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+
+  useEffect(() => {
+    getStaticText();
+    getTexts();
+  }, [selectedLanguage])
+
+
+
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
 
-    console.log('Form submitted with data:', formData);
+    // console.log('Form submitted with data:', formData);
+    if (
+      !formData?.name &&
+      !formData?.surname &&
+      !formData?.email &&
+      !formData?.phone &&
+      !formData?.message 
+    ) {
+      console.log("Error while submit");
+      return;
+    }
 
     
     const formToSubmit = new FormData();
@@ -31,14 +111,24 @@ function ContactUs() {
     formToSubmit.append('phone', formData.phone);
     formToSubmit.append('message', formData.message);
 
-    // Uncomment when ready to submit to an actual backend
-    // fetch('your-backend-url', {
-    //   method: 'POST',
-    //   body: formToSubmit,
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => console.log('Submitted data:', data))
-    //   .catch((error) => console.error('Error submitting form:', error));
+    const submitForm = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/contactBase`, {
+          method: "POST",
+          body: formToSubmit,
+        });
+        if (!response.ok) throw new Error("Unexpected occurred");
+        const data = await response.json(); 
+        console.log(data);
+        
+      } catch (error) {
+        // setError("Error fetching data");
+        console.error(error);
+      } finally {
+        // setLoading(false);
+      }
+    }
+    submitForm();
 
     setFormData({
       name: '',
@@ -49,18 +139,26 @@ function ContactUs() {
     });
   }, [formData]);
 
+
+  if (loading) {
+    return <div>Yüklənir...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <div className="contact-us container">
       <div className="contact-us__left">
-        <h4 className="contact-us__title">İT Həllərimizlə Sizin Uğura Yol Açırıq</h4>
+        <h4 className="contact-us__title">{texts["contact-subtitle"]}</h4>
         <p className="contact-us__description">
-          Müraciət formunu dolduraraq İT xidmətlərimiz haqqında daha ətraflı məlumat alın;
-          komandamız sizinlə tezliklə əlaqə saxlayacaq və texnoloji ehtiyaclarınıza uyğun həllər təqdim edəcək.
+          {texts["contact-desc"]}
         </p>
       </div>
 
       <div className="contact-us__right">
-        <h3 className="contact-us__form-title">Bizə müraciət edin!</h3>
+        <h3 className="contact-us__form-title">{texts["contact-title"]}</h3>
         <form className="contact-us__form" onSubmit={handleSubmit}>
           <div className="contact-us__inputs">
             <div className="contact-us__input-group">
@@ -68,7 +166,7 @@ function ContactUs() {
                 type="text"
                 name="name"
                 value={formData.name}
-                placeholder="Ad"
+                placeholder={staticTexts?.name}
                 onChange={handleChange}
                 className="contact-us__input"
               />
@@ -76,7 +174,7 @@ function ContactUs() {
                 type="email"
                 name="email"
                 value={formData.email}
-                placeholder="Email address"
+                placeholder={staticTexts["email-address"]}
                 onChange={handleChange}
                 className="contact-us__input"
               />
@@ -86,7 +184,7 @@ function ContactUs() {
                 type="text"
                 name="surname"
                 value={formData.surname}
-                placeholder="Soyad"
+                placeholder={staticTexts["surname"]}
                 onChange={handleChange}
                 className="contact-us__input"
               />
@@ -94,7 +192,7 @@ function ContactUs() {
                 type="tel"
                 name="phone"
                 value={formData.phone}
-                placeholder="Telefon nömrəsi"
+                placeholder={staticTexts["phone-number"]}
                 onChange={handleChange}
                 className="contact-us__input"
               />
@@ -103,12 +201,12 @@ function ContactUs() {
           <textarea
             name="message"
             value={formData.message}
-            placeholder="Mesajınızı buraya yazın..."
+            placeholder={staticTexts["message"]}
             onChange={handleChange}
             className="contact-us__textarea"
           ></textarea>
           <button className="contact-us__button" type="submit">
-            Müraciət et
+            {staticTexts?.apply}
           </button>
         </form>
       </div>

@@ -7,6 +7,7 @@ import About from './Pages/About';
 import Services from './Pages/Services';
 import Contact from './Pages/Contact';
 import ServicesDetails from './servicesComponents/servicesDetails/ServicesDetails';
+import NotFound from './Pages/notFound';
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
         <Route path="/about" element={<Layout><About /></Layout>}/>
         <Route path="/services" element={<Layout><Services /></Layout>}/>
         <Route path="/contact" element={<Layout><Contact /></Layout>}/>
-        <Route path="/services/:id" element={<Layout><ServicesDetails /></Layout>} />
+        <Route path="/services/:slug" element={<Layout><ServicesDetails /></Layout>} />
+        <Route path="*" element={<Layout><NotFound /></Layout>}/>
       </Routes>
     </Router>
   );

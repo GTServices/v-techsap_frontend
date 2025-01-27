@@ -3,6 +3,7 @@ import ServicesHomeCard from '../homeComponents/services-home/ServicesHomeCard';
 import ContactUs from '../components/ContactUs/ConstactUs';
 import ServicesTitle from '../servicesComponents/ServicesTitle';
 import Pagination from '../components/Pagination/Pagination';
+import { useSelector } from 'react-redux';
 
 function Services() {
   const colors = [
@@ -14,39 +15,64 @@ function Services() {
     "var(--Creamy_Almond)",
   ];
 
-  const [services, setServices] = useState([]); 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [loading, setLoading] = useState(true); 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1)
+
+  const [services, setServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); 
+  const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
+  const selectedLanguage = useSelector((state) => state.tech.language); 
+
+  const fetchServices = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${BASE_URL}/service?perPage=6&page=${currentPage}&lang=${selectedLanguage}`);
+      if (!response.ok) {
+        throw new Error("Xidmətlər məlumatı alınarkən xəta baş verdi");
+      }
+      const result = await response.json();      
+      setTotalPages(result.pageCount);
+      setServices(result.data); 
+    } catch (error) {
+      console.error("Xəta:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetch("../../../db.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setServices(data["ser-home"]);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("An error occurred:", error);
-        setLoading(false); 
-      });
+    fetchServices();
 
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+  }, [BASE_URL, selectedLanguage, currentPage]);
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+
+
+
+
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsMobile(window.innerWidth <= 768);
+  //   };
+
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   return (
     <div className='ser container'>
       <ServicesTitle />
-      {loading ? (
+      {/* {loading ? (
         <p>Yüklənir...</p> 
-      ) : (
+      ) : ( */}
         <ServicesHomeCard services={services} colors={colors} isMobile={isMobile} />
-      )}
-      <Pagination />
+      {/* )} */}
+      <Pagination 
+        totalPages={totalPages}
+        currentPage= {currentPage} 
+        setCurrentPage = {setCurrentPage}
+      />
       <ContactUs />
     </div>
   );

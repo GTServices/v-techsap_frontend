@@ -2,6 +2,7 @@ import React, { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSpring, animated } from "@react-spring/web";
 import "./Hero.css";
+import { Link } from "react-router-dom";
 
 const AnimatedNumber = memo(({ springProps }) => (
   <h5>
@@ -121,7 +122,7 @@ function Hero() {
             </div>
             <h2>{heroTitle || "Loading..."}</h2>
             <p>{heroDesc || "Loading..."}</p>
-            <button type="button">{askUsText || "Loading..."}</button>
+            <Link to="/contact" className="orangeBtn">{askUsText || "Loading..."}</Link>
           </div>
         </div>
 

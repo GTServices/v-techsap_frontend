@@ -4,31 +4,12 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux"; 
 import "./ServicesHome.css";
 
-function ServicesHomeCard({ colors = ["#ccc"], isMobile = false }) {
-  const [services, setServices] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); 
+function ServicesHomeCard({ services, colors = ["#ccc"], isMobile = false }) {
+  // const [services, setServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); 
   const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
   const selectedLanguage = useSelector((state) => state.tech.language); 
 
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(`${BASE_URL}/service?perPage=6&page=1&lang=${selectedLanguage}`);
-        if (!response.ok) {
-          throw new Error("Xidmətlər məlumatı alınarkən xəta baş verdi");
-        }
-        const result = await response.json();
-        setServices(result.data); 
-      } catch (error) {
-        console.error("Xəta:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchServices();
-  }, [BASE_URL, selectedLanguage]);
 
   if (isLoading) {
     return <p>Yüklənir...</p>;
@@ -39,7 +20,7 @@ function ServicesHomeCard({ colors = ["#ccc"], isMobile = false }) {
       {Array.isArray(services) && services.length > 0 ? (
         services.slice(0, isMobile ? 3 : services.length).map((service, index) => (
           <Link
-            to={`/services/${service.id}`}
+            to={`/services/${service.slug}`}
             key={service.id}
             className="card-link-wrapper"
           style={{width:"100%"}}>

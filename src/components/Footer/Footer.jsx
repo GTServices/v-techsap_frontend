@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import FootContact from "./FootContact";
 import FootLogo from "./FootLogo";
 import "./Footer.css";
+import { Link } from "react-router-dom";
 
 function Footer() {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
@@ -103,16 +104,16 @@ function Footer() {
                 <h4>{texts.links}</h4>
                 <ul>
                   <li>
-                    <a href="#">{texts["home-page"]}</a>
+                    <Link to="/">{texts["home-page"]}</Link>
                   </li>
                   <li>
-                    <a href="#">{texts["about"]}</a>
+                    <Link to="/about">{texts["about"]}</Link>
                   </li>
                   <li>
-                    <a href="#">{texts["services"]}</a>
+                    <Link to="/services">{texts["services"]}</Link>
                   </li>
                   <li>
-                    <a href="#">{texts["contact"]}</a>
+                    <Link to="/contact">{texts["contact"]}</Link>
                   </li>
                 </ul>
               </div>

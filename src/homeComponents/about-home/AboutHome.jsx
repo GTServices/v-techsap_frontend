@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useSelector } from "react-redux"; 
 import './AboutHome.css';
+import { Link } from 'react-router-dom';
 
 const AboutContentLeft = memo(({ title, imageUrl }) => (
   <div className="aboutContentLeft">
@@ -21,7 +22,7 @@ const AboutContentRight = memo(({ subtitle, description, buttonText }) => (
     <h3>{subtitle}</h3>
     <p>{description}</p>
     <div className="about-btn-div">
-      <button className="orangeBtn">{buttonText}</button>
+      <Link to="/about" className="orangeBtn">{buttonText}</Link>
     </div>
   </div>
 ));

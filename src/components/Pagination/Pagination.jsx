@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import "./Pagination.css";
 
-function Pagination() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 3; 
+function Pagination({totalPages, currentPage, setCurrentPage }) {
+  // const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageClick = (page) => {
     setCurrentPage(page);
@@ -16,6 +15,10 @@ function Pagination() {
   const handleNextClick = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
+
+  if (totalPages <= 1) {
+    return null;
+  }
 
   return (
     <div className="pagination">

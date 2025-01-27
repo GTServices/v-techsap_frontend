@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import '../costumers-home/costumerCard.css';
 
-function CostumerCard({ maxCards: maxCardsProp }) {
+function CostumerCard({ maxCards: maxCardsProp, serviceCustomers }) {
   const [customers, setCustomers] = useState([]);
   const [maxCards, setMaxCards] = useState(10); 
   const BASE_URL = useSelector((state) => state.tech.BASE_URL);  
@@ -31,7 +31,7 @@ function CostumerCard({ maxCards: maxCardsProp }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/customer/homePage?limit=${maxCards}`);  
+        const response = await fetch(`${BASE_URL}/customer${serviceCustomers ? "" : "/homePage"}?limit=${maxCards}`);  
         if (!response.ok) {
           throw new Error('Network error');
         }
@@ -62,7 +62,11 @@ function CostumerCard({ maxCards: maxCardsProp }) {
   return (
     <div className="costumer container">
       <div className="customer-list">
-        {customers.length > 0 ? (
+        {serviceCustomers ? (
+          serviceCustomers?.slice(0, effectiveMaxCards).map((customer) => (
+            <CustomerCardMemo customer={customer} key={customer.id} />
+          ))
+        ) : customers.length > 0 ? (
           customers.slice(0, effectiveMaxCards).map((customer) => (
             <CustomerCardMemo customer={customer} key={customer.id} />
           ))

@@ -79,7 +79,7 @@ const Header = memo(() => {
 
   const changeLanguage = useCallback((language) => {
     dispatch(setLanguage(language)); 
-    setIsLanguageOpen(false);
+    // setIsLanguageOpen(false);
   }, [dispatch]);
 
   const handleClickOutside = useCallback((event) => {

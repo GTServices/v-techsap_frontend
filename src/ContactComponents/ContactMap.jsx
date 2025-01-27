@@ -1,26 +1,99 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import './ContactMap.css';
+import { useSelector } from "react-redux";
 
 const ContactMap = memo(() => {
+  const selectedLanguage = useSelector((state) => state.tech.language);
+  const BASE_URL = useSelector((state) => state.tech.BASE_URL);
+
+  const [texts, setTexts] = useState({});
+  const [address, setAddress] = useState("");
+  const [map, setMap] = useState("");
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const getText = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/customText/getDatas?lang=${selectedLanguage}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify([
+          "contact-map-title", 
+          "contact-map-desc"
+        ]),
+      });
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setTexts(data);
+    } catch (error) {
+      setError("Error fetching data");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getAddress = async () => {
+    try{
+      const response = await fetch(`${BASE_URL}/staticText/main-address?lang=${selectedLanguage}`)
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setAddress(data.value)
+    } catch {
+      setError("Error fetching data");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const getMap = async () => {
+    try{
+      const response = await fetch(`${BASE_URL}/setting/map-iframe`)
+      if (!response.ok) throw new Error("Unexpected occurred");
+      const data = await response.json(); 
+      setMap(data.value)
+    } catch {
+      setError("Error fetching data");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+
+  useEffect(() => {
+    getText();
+    getAddress();
+    getMap();
+  }, [selectedLanguage]); 
+
+
+  if (loading) {
+    return <div>Yüklənir...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <div className="contact-map">
-      <div className="map">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d243647.27122791868!2d32.71576072280216!3d39.92076873218865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d34f2db0f9a8fd%3A0x64f23d9d8898d394!2sAnkara%2C%20Turkey!5e0!3m2!1sen!2str!4v1694858538585!5m2!1sen!2str"
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
+      <div className="map" dangerouslySetInnerHTML={{__html: map}}>
+
       </div>
       <div className="map-info">
-        <h3>Bizə Necə tapa Bilərsiniz?</h3>
-        <p>Ünvanımızı tapmaq üçün xəritəyə baxın və bizə rahatlıqla gələn yolu izləyin.</p>
+        <h3>{texts["contact-map-title"]}</h3>
+        <p>{texts["contact-map-desc"]}</p>
         <div className="location">
           <div className="location-icon">
             <FaLocationDot />
           </div>
-          <p>Nizami rayon,Mehdi Abbasov 121</p>
+          <p>{address}</p>
         </div>
       </div>
     </div>
