@@ -6,6 +6,7 @@ import { MdOutlineLanguage } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import { FaLocationDot, FaPhone, FaInstagram, FaLinkedin, FaYoutube, FaFacebook } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Header = memo(() => {
   const dispatch = useDispatch();
@@ -140,10 +141,10 @@ const Header = memo(() => {
         )}
 
         <ul>
-          <li><a href="/">{navbarData["home-page"] || "Ana Sehife"}</a></li>
-          <li><a href="/about">{navbarData["about"] || "Haqqımızda"}</a></li>
-          <li><a href="/services">{navbarData["services"] || "Xidmətlər"}</a></li>
-          <li><a href="/contact">{navbarData["contact"] || "Əlaqə"}</a></li>
+          <li><Link to="/">{navbarData["home-page"] || "Ana Sehife"}</Link></li>
+          <li><Link to="/about">{navbarData["about"] || "Haqqımızda"}</Link></li>
+          <li><Link to="/services">{navbarData["services"] || "Xidmətlər"}</Link></li>
+          <li><Link to="/contact">{navbarData["contact"] || "Əlaqə"}</Link></li>
 
           {isMenuOpen && (
             <div className="contact-section" style={{ paddingTop: "10rem" }}>
