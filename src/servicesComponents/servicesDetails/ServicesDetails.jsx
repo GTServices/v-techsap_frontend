@@ -14,6 +14,7 @@ function ServicesDetails() {
   const selectedLanguage = useSelector((state) => state.tech.language);
   const BASE_URL = useSelector((state) => state.tech.BASE_URL);
   const {slug} = useParams();
+  
 
   const [services, setServices] = useState([]);
   const [serviceData, setServiceData] = useState([]);

@@ -4,6 +4,7 @@ import ContactUs from '../components/ContactUs/ConstactUs';
 import ServicesTitle from '../servicesComponents/ServicesTitle';
 import Pagination from '../components/Pagination/Pagination';
 import { useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 function Services() {
   const colors = [
@@ -18,12 +19,26 @@ function Services() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [loading, setLoading] = useState(true); 
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1)
-
+  const [totalPages, setTotalPages] = useState(1);
   const [services, setServices] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
+  const [seoData, setSeoData] = useState(null); 
   const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
   const selectedLanguage = useSelector((state) => state.tech.language); 
+
+  const fetchSeoData = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/pagesSeo/services`);
+      const data = await response.json();
+      if (response.ok) {
+        setSeoData(data);
+      } else {
+        console.error('Failed to fetch SEO data');
+      }
+    } catch (error) {
+      console.error('Error fetching SEO data:', error);
+    }
+  };
 
   const fetchServices = async () => {
     try {
@@ -43,35 +58,27 @@ function Services() {
   };
 
   useEffect(() => {
-    fetchServices();
-
+    fetchSeoData(); 
+    fetchServices(); 
   }, [BASE_URL, selectedLanguage, currentPage]);
 
-
-
-
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setIsMobile(window.innerWidth <= 768);
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
   return (
-    <div className='ser container'>
+    <div className="ser container">
+  
+      {seoData && (
+        <Helmet>
+          <title>{seoData.title}</title>
+          <meta name="description" content={seoData.description} />
+          <meta name="keywords" content={seoData.keywords} />
+        </Helmet>
+      )}
+
       <ServicesTitle />
-      {/* {loading ? (
-        <p>Yüklənir...</p> 
-      ) : ( */}
-        <ServicesHomeCard services={services} colors={colors} isMobile={isMobile} />
-      {/* )} */}
+      <ServicesHomeCard services={services} colors={colors} isMobile={isMobile} />
       <Pagination 
         totalPages={totalPages}
-        currentPage= {currentPage} 
-        setCurrentPage = {setCurrentPage}
+        currentPage={currentPage} 
+        setCurrentPage={setCurrentPage}
       />
       <ContactUs />
     </div>

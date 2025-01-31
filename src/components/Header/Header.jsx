@@ -10,15 +10,17 @@ import { Link } from "react-router-dom";
 
 const Header = memo(() => {
   const dispatch = useDispatch();
-  const selectedLanguage = useSelector((state) => state.tech.language);
   const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
   const languages = useSelector((state) => state.tech.languages) || [];
   const [navbarData, setNavbarData] = useState({});
   const [logoURL, setLogoURL] = useState(""); 
-
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+
+  const storedLanguage = localStorage.getItem('selectedLanguage');
+  const [selectedLanguage, setSelectedLanguage] = useState(storedLanguage || "en");
 
   const fetchLogo = async () => {
     try {
@@ -41,7 +43,6 @@ const Header = memo(() => {
       if (response.ok) {
         setNavbarData({
           ...data,
-        
           "main-address": data["main-address"] || data["address"]
         });
       } else {
@@ -79,8 +80,9 @@ const Header = memo(() => {
   }, []);
 
   const changeLanguage = useCallback((language) => {
+    setSelectedLanguage(language);
+    localStorage.setItem('selectedLanguage', language); // Save selected language to localStorage
     dispatch(setLanguage(language)); 
-    // setIsLanguageOpen(false);
   }, [dispatch]);
 
   const handleClickOutside = useCallback((event) => {
@@ -141,10 +143,10 @@ const Header = memo(() => {
         )}
 
         <ul>
-          <li><Link to="/">{navbarData["home-page"] || "Ana Sehife"}</Link></li>
-          <li><Link to="/about">{navbarData["about"] || "Haqqımızda"}</Link></li>
-          <li><Link to="/services">{navbarData["services"] || "Xidmətlər"}</Link></li>
-          <li><Link to="/contact">{navbarData["contact"] || "Əlaqə"}</Link></li>
+          <li><Link to={`/${selectedLanguage}/`}>{navbarData["home-page"] || "Ana Sehife"}</Link></li>
+          <li><Link to={`/${selectedLanguage}/about`}>{navbarData["about"] || "Haqqımızda"}</Link></li>
+          <li><Link to={`/${selectedLanguage}/services`}>{navbarData["services"] || "Xidmətlər"}</Link></li>
+          <li><Link to={`/${selectedLanguage}/contact`}>{navbarData["contact"] || "Əlaqə"}</Link></li>
 
           {isMenuOpen && (
             <div className="contact-section" style={{ paddingTop: "10rem" }}>

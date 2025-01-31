@@ -20,7 +20,7 @@ function ServicesHomeCard({ services, colors = ["#ccc"], isMobile = false }) {
       {Array.isArray(services) && services.length > 0 ? (
         services.slice(0, isMobile ? 3 : services.length).map((service, index) => (
           <Link
-            to={`/services/${service.slug}`}
+            to={`/${selectedLanguage}/services/${service.slug}`}
             key={service.id}
             className="card-link-wrapper"
           style={{width:"100%"}}>
