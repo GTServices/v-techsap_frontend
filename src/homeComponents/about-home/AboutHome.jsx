@@ -17,12 +17,12 @@ const AboutContentLeft = memo(({ title, imageUrl }) => (
   </div>
 ));
 
-const AboutContentRight = memo(({ subtitle, description, buttonText }) => (
+const AboutContentRight = memo(({ subtitle, description, buttonText, selectedLanguage }) => (
   <div className="aboutContentRight">
     <h3>{subtitle}</h3>
     <p>{description}</p>
     <div className="about-btn-div">
-      <Link to="/about" className="orangeBtn">{buttonText}</Link>
+      <Link to={`/${selectedLanguage}/about`} className="orangeBtn">{buttonText}</Link>
     </div>
   </div>
 ));
@@ -118,6 +118,7 @@ function AboutHome() {
           subtitle={data.subtitle} 
           description={data.description} 
           buttonText={data.buttonText}
+          selectedLanguage={selectedLanguage} 
         />
       </div>
     </section>

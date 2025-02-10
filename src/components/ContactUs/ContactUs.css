@@ -100,15 +100,66 @@
 .contact-us__button {
   background-color: var(--PrimaryColor_1);
   color: #FFFFFF;
-  padding: clamp(0.8rem, 2vw, 1rem); 
-  border: none;
-  border-radius: .8rem;
+  padding: clamp(0.8rem, 2vw, 1rem);
+  border: 2px solid transparent;
+  border-radius: 0.8rem;
   font-weight: 600;
-  font-size: clamp(1.4rem, 2vw, 1.6rem); 
+  font-size: clamp(1.4rem, 2vw, 1.6rem);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease-in-out; 
   width: 100%;
 }
+
+.contact-us__button:hover {
+  background-color: #FFFFFF;
+  color: var(--PrimaryColor_1); 
+  border: 2px solid var(--PrimaryColor_1); 
+}
+.success-toast {
+  position: fixed;
+  bottom: 17rem;
+  right: 2rem;
+  background-color: #28a745;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 12px 2rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(2rem);
+  animation: fadeInUp 0.5s ease-out forwards, fadeOut 0.5s ease-in 2.5s forwards;
+}
+
+/* Animasiya */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.success-toast__icon {
+  font-size: 1.6rem;
+}
+
+
 
                                                                         /*! RESPONSIVE  */
 @media (max-width: 768px) {

@@ -12,7 +12,7 @@ const AnimatedNumber = memo(({ springProps }) => (
 ));
 
 function Hero() {
-  const selectedLanguage = useSelector((state) => state.tech.language);
+  const selectedLang = useSelector((state) => state.tech.language);
   const [imageUrl, setImageUrl] = useState("");
   const [companyCount, setCompanyCount] = useState(null);
   const [workCount, setWorkCount] = useState(null);
@@ -28,13 +28,13 @@ function Hero() {
     const fetchHeroData = async () => {
       try {
         const imageResponse = await fetch(
-          `${BASE_URL}/staticImage/home-hero?lang=${selectedLanguage}`
+          `${BASE_URL}/staticImage/home-hero?lang=${selectedLang}`
         );
         const imageData = await imageResponse.json();
         setImageUrl(imageData.image);
 
         const heroResponse = await fetch(
-          `${BASE_URL}/customText/getDatas?lang=${selectedLanguage}`,
+          `${BASE_URL}/customText/getDatas?lang=${selectedLang}`,
           {
             method: "POST",
             headers: {
@@ -48,31 +48,31 @@ function Hero() {
         setHeroDesc(heroData["home-hero-desc"]);
 
         const companyCountResponse = await fetch(
-          `${BASE_URL}/setting/company-count?lang=${selectedLanguage}`
+          `${BASE_URL}/setting/company-count?lang=${selectedLang}`
         );
         const companyCountData = await companyCountResponse.json();
         setCompanyCount(companyCountData.value);
 
         const companyCountTextResponse = await fetch(
-          `${BASE_URL}/staticText/company-count?lang=${selectedLanguage}`
+          `${BASE_URL}/staticText/company-count?lang=${selectedLang}`
         );
         const companyCountTextData = await companyCountTextResponse.json();
         setCompanyCountText(companyCountTextData.value);
 
         const workCountResponse = await fetch(
-          `${BASE_URL}/setting/work-count?lang=${selectedLanguage}`
+          `${BASE_URL}/setting/work-count?lang=${selectedLang}`
         );
         const workCountData = await workCountResponse.json();
         setWorkCount(workCountData.value);
 
         const workCountTextResponse = await fetch(
-          `${BASE_URL}/staticText/work-count?lang=${selectedLanguage}`
+          `${BASE_URL}/staticText/work-count?lang=${selectedLang}`
         );
         const workCountTextData = await workCountTextResponse.json();
         setWorkCountText(workCountTextData.value);
 
         const askUsResponse = await fetch(
-          `${BASE_URL}/staticText/ask-us?lang=${selectedLanguage}`
+          `${BASE_URL}/staticText/ask-us?lang=${selectedLang}`
         );
         const askUsData = await askUsResponse.json();
         setAskUsText(askUsData.value);
@@ -88,7 +88,7 @@ function Hero() {
     };
 
     fetchHeroData();
-  }, [BASE_URL, selectedLanguage]);
+  }, [BASE_URL, selectedLang]);
 
   const safeParseInt = (value) => {
     const parsed = parseInt(value, 10);
@@ -122,7 +122,9 @@ function Hero() {
             </div>
             <h2>{heroTitle || "Loading..."}</h2>
             <p>{heroDesc || "Loading..."}</p>
-            <Link to="/contact" className="orangeBtn">{askUsText || "Loading..."}</Link>
+            <Link to={`/${selectedLang}/contact`} className="orangeBtn">
+              {askUsText || "Loading..."}
+            </Link>
           </div>
         </div>
 

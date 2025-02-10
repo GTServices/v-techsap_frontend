@@ -81,16 +81,16 @@ function Footer() {
                 <h4>{texts.links}</h4>
                 <ul>
                   <li>
-                    <a href="#">{texts["home-page"]}</a>
+                    <a href={`/${language}`}>{texts["home-page"]}</a>
                   </li>
                   <li>
-                    <a href="#">{texts["about"]}</a>
+                    <a href={`/${language}/about`}>{texts["about"]}</a>
                   </li>
                   <li>
-                    <a href="#">{texts["services"]}</a>
+                    <a href={`/${language}/services`}>{texts["services"]}</a>
                   </li>
                   <li>
-                    <a href="#">{texts["contact"]}</a>
+                    <a href={`/${language}/contact`}>{texts["contact"]}</a>
                   </li>
                 </ul>
               </div>
@@ -104,16 +104,16 @@ function Footer() {
                 <h4>{texts.links}</h4>
                 <ul>
                   <li>
-                    <Link to="/">{texts["home-page"]}</Link>
+                    <Link to={`/${language}`}>{texts["home-page"]}</Link>
                   </li>
                   <li>
-                    <Link to="/about">{texts["about"]}</Link>
+                    <Link to={`/${language}/about`}>{texts["about"]}</Link>
                   </li>
                   <li>
-                    <Link to="/services">{texts["services"]}</Link>
+                    <Link to={`/${language}/services`}>{texts["services"]}</Link>
                   </li>
                   <li>
-                    <Link to="/contact">{texts["contact"]}</Link>
+                    <Link to={`/${language}/contact`}>{texts["contact"]}</Link>
                   </li>
                 </ul>
               </div>

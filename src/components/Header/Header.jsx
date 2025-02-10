@@ -20,7 +20,7 @@ const Header = memo(() => {
 
 
   const storedLanguage = localStorage.getItem('selectedLanguage');
-  const [selectedLanguage, setSelectedLanguage] = useState(storedLanguage || "en");
+  const [selectedLanguage, setSelectedLanguage] = useState(storedLanguage || "az");
 
   const fetchLogo = async () => {
     try {

@@ -147,7 +147,7 @@ console.log(serviceData);
           isMobile={windowWidth <= 768}
         />
         <div className="ser-card-but">
-          <Link to="/services" className="orangeBtn">{texts["see-all"]}</Link>
+          <Link to={`/${selectedLanguage}/services`} className="orangeBtn">{texts["see-all"]}</Link>
         </div>
       </div>
       <ContactUs />
