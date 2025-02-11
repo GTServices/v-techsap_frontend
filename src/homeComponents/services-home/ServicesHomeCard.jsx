@@ -16,7 +16,7 @@ function ServicesHomeCard({ services, colors = ["#ccc"], isMobile = false }) {
   }
 
   return (
-    <div className="card-zone">
+    <div className="card-zone container">
       {Array.isArray(services) && services.length > 0 ? (
         services.slice(0, isMobile ? 3 : services.length).map((service, index) => (
           <Link

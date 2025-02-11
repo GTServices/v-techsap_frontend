@@ -77,7 +77,9 @@ function Home() {
         <CostumersHome />
         {/* <CommentsHome /> */}
         <PartnyorsHome />
+        <div className='container'>
         <ConstactUs />
+        </div>
       </div>
     </Suspense>
   );

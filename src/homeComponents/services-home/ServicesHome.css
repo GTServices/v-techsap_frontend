@@ -2,6 +2,9 @@
   border-bottom: 1.5px solid var(--BorderColor);
   padding-bottom: 7rem;
 }
+.ser-home .gradient-heading{
+  margin-bottom: 0;
+}
 .card-zone {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(31rem, 1fr));
@@ -13,9 +16,9 @@
   width: min(100%, 40.8rem);
   padding: 2.4rem;
   border-radius: 1rem;
-  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth animation */
-  transform-origin: center; /* Centered scaling */
-  overflow: hidden; /* Ensure inner content stays within the card */
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); 
+  transform-origin: center; 
+  overflow: hidden; 
   position: relative;
 }
 
@@ -26,7 +29,7 @@
   left: 50%;
   width: 0%;
   height: 0%;
-  background: rgba(0, 0, 0, 0.05); /* Subtle effect */
+  background: rgba(0, 0, 0, 0.05); 
   border-radius: 50%;
   transform: translate(-50%, -50%);
   opacity: 0;

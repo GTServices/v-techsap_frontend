@@ -13,13 +13,11 @@ import { Link, useParams } from 'react-router-dom';
 function ServicesDetails() {
   const selectedLanguage = useSelector((state) => state.tech.language);
   const BASE_URL = useSelector((state) => state.tech.BASE_URL);
-  const {slug} = useParams();
-  
+  const { slug } = useParams();
 
   const [services, setServices] = useState([]);
   const [serviceData, setServiceData] = useState([]);
-  const [customersTitle, setCustomersTitle] = useState(""); 
-  const [texts, setTexts] = useState({}); 
+  const [texts, setTexts] = useState({});
   const [customerHeading, setCustomerHeading] = useState(""); 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const colors = [
@@ -32,47 +30,37 @@ function ServicesDetails() {
   ];
 
   const getServices = async () => {
-    try{
-      const response = await fetch(`${BASE_URL}/service?perPage=4&page=1&lang=${selectedLanguage}`)
+    try {
+      const response = await fetch(`${BASE_URL}/service?perPage=4&page=1&lang=${selectedLanguage}`);
       if (!response.ok) throw new Error("Unexpected occurred");
       const data = await response.json(); 
-      setServices(data.data)
+      setServices(data.data);
     } catch {
-      setError("Error fetching data");
-      console.error(error);
-    } finally {
-      // setLoading(false);
+      console.error("Error fetching data");
     }
-  }
-
+  };
 
   const getServiceData = async () => {
-    try{
-      const response = await fetch(`${BASE_URL}/service/${slug}?lang=${selectedLanguage}`)
+    try {
+      const response = await fetch(`${BASE_URL}/service/${slug}?lang=${selectedLanguage}`);
       if (!response.ok) throw new Error("Unexpected occurred");
       const data = await response.json(); 
-      setServiceData(data)
+      setServiceData(data);
     } catch {
-      setError("Error fetching data");
-      console.error(error);
-    } finally {
-      setLoading(false);
+      console.error("Error fetching data");
     }
-  }
+  };
 
   const getCustomerHeading = async () => {
-    try{
-      const response = await fetch(`${BASE_URL}/customText/customer-title?lang=${selectedLanguage}`)
+    try {
+      const response = await fetch(`${BASE_URL}/customText/customer-title?lang=${selectedLanguage}`);
       if (!response.ok) throw new Error("Unexpected occurred");
       const data = await response.json(); 
-      setCustomerHeading(data.value)
+      setCustomerHeading(data.value);
     } catch {
-      // setError("Error fetching data");
-      console.error(error);
-    } finally {
-      setLoading(false);
+      console.error("Error fetching data");
     }
-  }
+  };
 
   const getText = async () => {
     try {
@@ -88,26 +76,26 @@ function ServicesDetails() {
       });
       if (!response.ok) throw new Error("Unexpected occurred");
       const data = await response.json(); 
+
+      // "other-services" arrayi varsa onu sıralayırıq
+      if (Array.isArray(data["other-services"])) {
+        // Azərbaycan dilində sıralama
+        const collator = new Intl.Collator('az', { sensitivity: 'base' });
+        data["other-services"].sort(collator.compare);
+      }
+
       setTexts(data);
     } catch (error) {
-      // setError("Error fetching data");
-      console.error(error);
-    } finally {
-      // setLoading(false);
+      console.error("Error fetching data");
     }
   };
-
-
 
   useEffect(() => {
     getServiceData();
     getCustomerHeading();
     getText();
     getServices();
-  }, [BASE_URL, selectedLanguage])
-
-console.log(serviceData);
-
+  }, [BASE_URL, selectedLanguage]);
 
   const handleResize = useCallback(() => {
     setWindowWidth(window.innerWidth);
@@ -116,7 +104,7 @@ console.log(serviceData);
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [BASE_URL, selectedLanguage, handleResize]); 
+  }, [BASE_URL, selectedLanguage, handleResize]);
 
   const getCardCount = () => {
     if (windowWidth < 375) return 3;
@@ -125,7 +113,7 @@ console.log(serviceData);
   };
 
   return (
-    <div className="services-details">
+    <div className="services-details container">
       <ServicesHomeHead />
       <ServicesTopTitle serviceData={serviceData}/>
       <ServicesHero serviceData={serviceData}/>
@@ -139,7 +127,7 @@ console.log(serviceData);
         <CostumerCard serviceCustomers={serviceData.customers} maxCards={5} />
       </div>
 
-      <div className="services-detail-cards container">
+      <div className="services-detail-cards ">
         <h3 className="gradient-heading">{texts["other-services"]}</h3>
         <ServicesHomeCard
           services={services.slice(0, getCardCount())}

@@ -31,6 +31,7 @@
   height: 80%;
 }
 .hero-wrapper  .hero-right-img {
+  /* width: 52.7rem; */
   height:100%;
   overflow: hidden;
   border-radius: 1.2rem;
@@ -105,6 +106,13 @@
   margin-top: 0.9rem;
 }
                                                                     /*! --RESPONSIVE  */
+ @media  (min-width:768px) {
+  .hero-wrapper  .hero-right-img {
+  width: clamp(40rem, 50vw, 52.7rem);
+
+  
+  }
+ }                                                                 
                                                                     /*? RESPONSIVE 800+  */
  @media screen and (max-width:800px){
     .hero-wrapper .hero-left-content p{

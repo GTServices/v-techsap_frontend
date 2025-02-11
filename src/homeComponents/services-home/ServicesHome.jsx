@@ -76,7 +76,7 @@ function ServicesHome() {
   }, [handleResize]);
 
   return (
-    <section className="ser-home container">
+    <section className="ser-home ">
       <ServicesHomeHead />
       {error ? (
         <p className="error-message">{error}</p>

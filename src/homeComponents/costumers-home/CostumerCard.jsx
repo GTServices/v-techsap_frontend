@@ -60,7 +60,7 @@ function CostumerCard({ maxCards: maxCardsProp, serviceCustomers }) {
   ));
 
   return (
-    <div className="costumer container">
+    <div className="costumer ">
       <div className="customer-list">
         {serviceCustomers ? (
           serviceCustomers?.slice(0, effectiveMaxCards).map((customer) => (
