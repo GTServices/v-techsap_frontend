@@ -1,4 +1,4 @@
-                                                                                      /*! Header Design Start  */
+                                             /*! Header Design Start  */
 .h-wrapper {
   max-width: 100%;
   width: 100%;
@@ -16,6 +16,12 @@
   z-index: 9999;
   /* padding-inline: 12.5rem; */
 }
+.headerContent{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+}
 .scroll-active {
   position: sticky;
   top: 0;
@@ -26,7 +32,7 @@
   margin-top: 0;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
   z-index: 9999;
-  padding-inline: 12.5rem;
+  /* padding-inline: 12.5rem; */
 }
 .h-wrapper .header_logo {
   width: 15rem;
@@ -104,6 +110,9 @@
   font-weight: 500;
   font-size: clamp(1.2rem, 1.6rem, 2rem);
   color: var(--Black_Color);
+}
+.activeLink {
+  border-bottom: 2px solid #FF7545;
 }
 
                                                                                           /*? Navbar Submenu Design */

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function FootLogo() {
   const [logoUrl, setLogoUrl] = useState(""); 
@@ -45,7 +46,9 @@ function FootLogo() {
     <section className="foot-logo-section">
       <div className="logo-container">
         {logoUrl ? (
-          <img src={logoUrl} alt="Company Logo" className="foot-logo-img" />
+          <Link to="/">
+            <img src={logoUrl} alt="Company Logo" className="foot-logo-img" />
+          </Link>
         ) : (
           <p>Logo</p> 
         )}

@@ -6,10 +6,11 @@ import { MdOutlineLanguage } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import { FaLocationDot, FaPhone, FaInstagram, FaLinkedin, FaYoutube, FaFacebook } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 const Header = memo(() => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
   const languages = useSelector((state) => state.tech.languages) || [];
   const [navbarData, setNavbarData] = useState({});
@@ -121,100 +122,131 @@ const Header = memo(() => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  
 
-  return (
-    <section className={`h-wrapper  ${isScrolled ? "scroll-active" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
-      <div className="header_logo">
-        <a href="/">
-          {logoURL ? (
-            <img src={logoURL} alt="header_logo_img" />
-          ) : (
-            <span>Loading...</span>
-          )}
-        </a>
-      </div>
+  return ( //  ??? added div same classname
+    <header className={`h-wrapper  ${isScrolled ? "scroll-active" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
+      <div className="container headerContent">
+        <div className="header_logo">
+          <a href="/">
+            {logoURL ? (
+              <img src={logoURL} alt="header_logo_img" />
+            ) : (
+              <span>Loading...</span>
+            )}
+          </a>
+        </div>
 
-      <nav className={`head_navList ${isMenuOpen ? "active" : ""}`}>
-        {isMenuOpen && (
-          <div className="miniHeader" style={{ width: "100%" }}>
-            <img src={logoURL} alt="logo" style={{ width: "100px", height: "50px" }} />
-            <IoClose onClick={toggleMenu} />
-          </div>
-        )}
-
-        <ul>
-          <li><Link to={`/${selectedLanguage}/`}>{navbarData["home-page"] || "Ana Sehife"}</Link></li>
-          <li><Link to={`/${selectedLanguage}/about`}>{navbarData["about"] || "Haqqımızda"}</Link></li>
-          <li><Link to={`/${selectedLanguage}/services`}>{navbarData["services"] || "Xidmətlər"}</Link></li>
-          <li><Link to={`/${selectedLanguage}/contact`}>{navbarData["contact"] || "Əlaqə"}</Link></li>
-
+        <nav className={`head_navList ${isMenuOpen ? "active" : ""}`}>
           {isMenuOpen && (
-            <div className="contact-section" style={{ paddingTop: "10rem" }}>
-              <ul className="contact-info">
-                <h4 className="contact-section-title">{navbarData["contact"] || "Contact"}</h4>
-                <li>
-                  <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer">
-                    <FaLocationDot className="contact-icon" />
-                    {navbarData["main-address"] || "Nizami district, Mehdi Abbasov 121"}
-                  </a>
-                </li>
-                <li>
-                  <a href="tel:0558650545">
-                    <FaPhone className="contact-icon" />
-                    (055) 865 05 45
-                  </a>
-                </li>
-              </ul>
-              <div className="social-links">
-                <a href={navbarData["instagram-link"] || "https://instagram.com"} target="_blank" rel="noopener noreferrer">
-                  <FaInstagram />
-                </a>
-                <a href={navbarData["linkedin-link"]} target="_blank" rel="noopener noreferrer">
-                  <FaLinkedin />
-                </a>
-                <a href={navbarData["youtube-link"] || "https://youtube.com"} target="_blank" rel="noopener noreferrer">
-                  <FaYoutube />
-                </a>
-                <a href={navbarData["facebook-link"] || "https://facebook.com"} target="_blank" rel="noopener noreferrer">
-                  <FaFacebook />
-                </a>
-              </div>
+            <div className="miniHeader" style={{ width: "100%" }}>
+              <img src={logoURL} alt="logo" style={{ width: "100px", height: "50px" }} />
+              <IoClose onClick={toggleMenu} />
             </div>
           )}
-        </ul>
-      </nav>
 
-      <button className="hamburger-icon" onClick={toggleMenu} aria-label="Toggle menu">
-        <GiHamburgerMenu />
-      </button>
-
-      <div
-        className="language_bar"
-        onClick={toggleLanguageMenu}
-        role="button"
-        aria-expanded={isLanguageOpen}
-        tabIndex={0}
-      >
-        <span>{selectedLanguage}</span>
-        <i><MdOutlineLanguage /></i>
-
-        <div className={`language_menu ${isLanguageOpen ? "is-active" : ""}`}>
           <ul>
-            {languages.length === 0 ? (
-              <li>Loading languages...</li>
-            ) : (
-              languages.map((lang) => (
-                <li key={lang.id}>
-                  <a href="#" onClick={() => changeLanguage(lang.langCode)}>
-                    {lang.name}
+            <li>
+              <NavLink
+                to={`/${selectedLanguage}/`}
+                className={({ isActive }) => (isActive && !location.pathname.split("/")[2]) ? "activeLink" : "" }
+              >
+                {navbarData["home-page"] || "Ana Sehife"} 
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={`/${selectedLanguage}/about`}
+                className={({ isActive }) => isActive ? "activeLink" : "" }
+              >
+                {navbarData["about"] || "Haqqımızda"}
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={`/${selectedLanguage}/services`}
+                className={({ isActive }) => isActive ? "activeLink" : "" }
+              >
+                {navbarData["services"] || "Xidmətlər"}
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={`/${selectedLanguage}/contact`}
+                className={({ isActive }) => isActive ? "activeLink" : "" }
+              >
+                {navbarData["contact"] || "Əlaqə"}
+              </NavLink>
+            </li>
+
+            {isMenuOpen && (
+              <div className="contact-section" style={{ paddingTop: "10rem" }}>
+                <ul className="contact-info">
+                  <h4 className="contact-section-title">{navbarData["contact"] || "Contact"}</h4>
+                  <li>
+                    <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer">
+                      <FaLocationDot className="contact-icon" />
+                      {navbarData["main-address"] || "Nizami district, Mehdi Abbasov 121"}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="tel:0558650545">
+                      <FaPhone className="contact-icon" />
+                      (055) 865 05 45
+                    </a>
+                  </li>
+                </ul>
+                <div className="social-links">
+                  <a href={navbarData["instagram-link"] || "https://instagram.com"} target="_blank" rel="noopener noreferrer">
+                    <FaInstagram />
                   </a>
-                </li>
-              ))
+                  <a href={navbarData["linkedin-link"]} target="_blank" rel="noopener noreferrer">
+                    <FaLinkedin />
+                  </a>
+                  <a href={navbarData["youtube-link"] || "https://youtube.com"} target="_blank" rel="noopener noreferrer">
+                    <FaYoutube />
+                  </a>
+                  <a href={navbarData["facebook-link"] || "https://facebook.com"} target="_blank" rel="noopener noreferrer">
+                    <FaFacebook />
+                  </a>
+                </div>
+              </div>
             )}
           </ul>
+        </nav>
+
+        <button className="hamburger-icon" onClick={toggleMenu} aria-label="Toggle menu">
+          <GiHamburgerMenu />
+        </button>
+
+        <div
+          className="language_bar"
+          onClick={toggleLanguageMenu}
+          role="button"
+          aria-expanded={isLanguageOpen}
+          tabIndex={0}
+        >
+          <span>{selectedLanguage}</span>
+          <i><MdOutlineLanguage /></i>
+
+          <div className={`language_menu ${isLanguageOpen ? "is-active" : ""}`}>
+            <ul>
+              {languages.length === 0 ? (
+                <li>Loading languages...</li>
+              ) : (
+                languages.map((lang) => (
+                  <li key={lang.id}>
+                    <a href="#" onClick={() => changeLanguage(lang.langCode)}>
+                      {lang.name}
+                    </a>
+                  </li>
+                ))
+              )}
+            </ul>
+          </div>
         </div>
       </div>
-    </section>
+    </header>
   );
 });
 
