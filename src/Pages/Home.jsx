@@ -57,11 +57,11 @@ function Home() {
 
   if (!seoData) {
 
-    return <div>Loading SEO data...</div>;
+    return <div></div>;
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div></div>}>
    
       <Helmet>
         <title>{seoData.title || 'V-Techsap'}</title>
@@ -71,16 +71,17 @@ function Home() {
 
       <div>
         <Hero />
+        <div> </div>
         <AboutHome />
         <ServicesHome />
         {/* <ProductsHome /> */}
         <CostumersHome />
         {/* <CommentsHome /> */}
         <PartnyorsHome />
-        <div className='container'>
+    
         <ConstactUs />
         </div>
-      </div>
+      
     </Suspense>
   );
 }

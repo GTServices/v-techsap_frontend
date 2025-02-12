@@ -45,7 +45,7 @@ function Services() {
       setIsLoading(true);
       const response = await fetch(`${BASE_URL}/service?perPage=6&page=${currentPage}&lang=${selectedLanguage}`);
       if (!response.ok) {
-        throw new Error("Xidmətlər məlumatı alınarkən xəta baş verdi");
+        throw new Error("");
       }
       const result = await response.json();      
       setTotalPages(result.pageCount);
@@ -63,7 +63,7 @@ function Services() {
   }, [BASE_URL, selectedLanguage, currentPage]);
 
   return (
-    <div className="ser container">
+    <div className="ser">
   
       {seoData && (
         <Helmet>

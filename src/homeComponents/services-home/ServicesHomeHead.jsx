@@ -18,7 +18,7 @@ function ServicesHomeHead() {
   }, [BASE_URL, selectedLanguage]);
 
   if (!serviceText) {
-    return <div>Yüklənir...</div>;
+    return <div></div>;
   }
 
 

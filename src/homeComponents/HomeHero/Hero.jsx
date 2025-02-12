@@ -120,10 +120,10 @@ function Hero() {
                 loading="lazy"
               />
             </div>
-            <h2>{heroTitle || "Loading..."}</h2>
-            <p>{heroDesc || "Loading..."}</p>
+            <h2>{heroTitle }</h2>
+            <p>{heroDesc }</p>
             <Link to={`/${selectedLang}/contact`} className="orangeBtn">
-              {askUsText || "Loading..."}
+              {askUsText }
             </Link>
           </div>
         </div>

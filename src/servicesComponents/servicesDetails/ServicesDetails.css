@@ -27,3 +27,6 @@ margin-bottom: 12rem;
 .ser-card-but .orangeBtn{
     margin-inline: auto;
 }
+.services-details .services-detail-cards{
+    margin: 0;
+}

@@ -113,7 +113,8 @@ function ServicesDetails() {
   };
 
   return (
-    <div className="services-details container">
+    <div className="services-details ">
+      
       <ServicesHomeHead />
       <ServicesTopTitle serviceData={serviceData}/>
       <ServicesHero serviceData={serviceData}/>
@@ -128,7 +129,9 @@ function ServicesDetails() {
       </div>
 
       <div className="services-detail-cards ">
+        <div className='container'> 
         <h3 className="gradient-heading">{texts["other-services"]}</h3>
+        </div>
         <ServicesHomeCard
           services={services.slice(0, getCardCount())}
           colors={colors}
@@ -138,7 +141,9 @@ function ServicesDetails() {
           <Link to={`/${selectedLanguage}/services`} className="orangeBtn">{texts["see-all"]}</Link>
         </div>
       </div>
+      <div className='container'>
       <ContactUs />
+      </div>
     </div>
   );
 }

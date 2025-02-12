@@ -27,7 +27,7 @@ function Contact() {
   }, []);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div></div>}>
      
       {seoData ? (
         <Helmet>
@@ -46,8 +46,9 @@ function Contact() {
       <div className="contact container">
         <ContactHead />
         <ContactMap />
-        <ContactUs />
+        
       </div>
+      <ContactUs />
     </Suspense>
   );
 }

@@ -21,17 +21,22 @@
 }
 .hero-wrapper  .hero-back {
   position: absolute;
-  top: 7%;
+  top: 5%;
   right: -10%;  
-  max-width: 100%;
+  max-width: 80%;
+  width: 70%;
+  min-height: 100%;
   overflow: hidden;
+  
 }
-.hero-back img{
-  width: 60%;
-  height: 80%;
+.hero-wrapper .hero-back img{
+  width: 80%; 
+  min-height: 100%;
+  object-position: center;
+  object-fit: cover;
 }
 .hero-wrapper  .hero-right-img {
-  /* width: 52.7rem; */
+   width: 52.7rem;
   height:100%;
   overflow: hidden;
   border-radius: 1.2rem;

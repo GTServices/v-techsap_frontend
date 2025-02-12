@@ -64,7 +64,7 @@ function Footer() {
   }, [BASE_URL, language]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p></p>;
   }
 
   return (

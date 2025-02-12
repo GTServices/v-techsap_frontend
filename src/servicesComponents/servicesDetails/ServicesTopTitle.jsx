@@ -4,7 +4,7 @@ import "../servicesDetails/ServicesTopTitle.css";
 
 function ServicesTopTitle({serviceData}) {
   if (!serviceData) {
-    return <div>Yüklənir...</div>; 
+    return <div></div>; 
   }
 
 
@@ -12,8 +12,8 @@ function ServicesTopTitle({serviceData}) {
 
   return (
     <div className="services-top-title container">
-      <h3>{title || "No Title"}</h3> 
-      <p>{shortDesc || "No short description available"}</p>
+      <h3>{title }</h3> 
+      <p>{shortDesc }</p>
     </div>
   );
 }

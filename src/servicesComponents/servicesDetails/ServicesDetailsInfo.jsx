@@ -40,8 +40,8 @@ function ServicesDetailsInfo({serviceData}) {
       <div className="info-cards">
         {serviceData?.benefits?.map((card, index) => (
           <div key={card.id} className="card-item">
-            <h3>{card.title || "No Title"}</h3>
-            <p>{card.desc || "No description available"}</p>
+            <h3>{card.title }</h3>
+            <p>{card.desc }</p>
             {
                 !index && serviceData?.benefitImage && (
                 <div className="card-item-img">

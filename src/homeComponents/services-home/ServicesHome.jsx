@@ -35,7 +35,7 @@ function ServicesHome() {
       setIsLoading(true);
       const response = await fetch(`${BASE_URL}/service?perPage=6&page=${currentPage}&lang=${selectedLanguage}`);
       if (!response.ok) {
-        throw new Error("Xidmətlər məlumatı alınarkən xəta baş verdi");
+        throw new Error("");
       }
       const result = await response.json();      
       setTotalPages(result.pageCount);
@@ -83,14 +83,14 @@ function ServicesHome() {
       ) : services.length > 0 ? (
         <ServicesHomeCard services={services} colors={colors} isMobile={isMobile} />
       ) : (
-        <p className="no-services">Hal-hazırda heç bir xidmət mövcud deyil.</p>
+        <p className="no-services"></p>
       )}
       {miniMobile ? (
         <div className="ser-home-btn">
           {/* <button className="orangeBtn">Daha Cox</button> */}
         </div>
       ) : (
-        <div className="left-right-btns">
+        <div className="left-right-btns container">
       <i onClick={handlePrewServices}><FaArrowLeft /></i>
       <i onClick={handleNextServices} className="right-arrow"><FaArrowRight /></i>
     </div>

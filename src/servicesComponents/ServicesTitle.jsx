@@ -54,7 +54,7 @@ const ServicesTitle = () => {
   const formattedHeading = isUpperCase ? headingText : headingText.toLocaleUpperCase("az");
 
   return (
-    <div className="services-title-container container">
+    <div className="services-title-container container ">
       <h3 className="services-title-heading gradient-heading">{formattedHeading}</h3>
       <div className="services-title-content">
         <h3 className="services-title-subheading">{texts["service-title"]}</h3>

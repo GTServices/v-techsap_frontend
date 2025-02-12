@@ -11,6 +11,7 @@ function ContactUs() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showToast, setShowToast] = useState(false); 
+  const [errors, setErrors] = useState({}); 
 
   const [formData, setFormData] = useState({
     name: "",
@@ -25,6 +26,11 @@ function ContactUs() {
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value ? false : true,
     }));
   }, []);
 
@@ -90,10 +96,19 @@ function ContactUs() {
     (e) => {
       e.preventDefault();
 
-      if (!formData?.name && !formData?.surname && !formData?.email && !formData?.phone && !formData?.message) {
-        console.log("Error while submit");
+      const newErrors = {};
+      Object.keys(formData).forEach((key) => {
+        if (!formData[key]) {
+          newErrors[key] = true;
+        }
+      });
+
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
         return;
       }
+
+      setErrors({}); 
 
       const formToSubmit = new FormData();
       formToSubmit.append("name", formData.name);
@@ -111,7 +126,6 @@ function ContactUs() {
           if (!response.ok) throw new Error("Unexpected occurred");
           const data = await response.json();
           console.log(data);
-
 
           setShowToast(true);
           setTimeout(() => setShowToast(false), 3000);
@@ -133,7 +147,7 @@ function ContactUs() {
   );
 
   if (loading) {
-    return <div>Yüklənir...</div>;
+    return <div></div>;
   }
 
   if (error) {
@@ -141,7 +155,7 @@ function ContactUs() {
   }
 
   return (
-    <div className="contact-us ">
+    <div className="contact-us container">
       <div className="contact-us__left">
         <h4 className="contact-us__title">{texts["contact-subtitle"]}</h4>
         <p className="contact-us__description">{texts["contact-desc"]}</p>
@@ -158,7 +172,7 @@ function ContactUs() {
                 value={formData.name}
                 placeholder={staticTexts?.name}
                 onChange={handleChange}
-                className="contact-us__input"
+                className={`contact-us__input ${errors.name ? "red-border" : ""}`}
               />
               <input
                 type="email"
@@ -166,7 +180,7 @@ function ContactUs() {
                 value={formData.email}
                 placeholder={staticTexts["email-address"]}
                 onChange={handleChange}
-                className="contact-us__input"
+                className={`contact-us__input ${errors.email ? "red-border" : ""}`}
               />
             </div>
             <div className="contact-us__input-group">
@@ -176,7 +190,7 @@ function ContactUs() {
                 value={formData.surname}
                 placeholder={staticTexts["surname"]}
                 onChange={handleChange}
-                className="contact-us__input"
+                className={`contact-us__input ${errors.surname ? "red-border" : ""}`}
               />
               <input
                 type="tel"
@@ -184,7 +198,7 @@ function ContactUs() {
                 value={formData.phone}
                 placeholder={staticTexts["phone-number"]}
                 onChange={handleChange}
-                className="contact-us__input"
+                className={`contact-us__input ${errors.phone ? "red-border" : ""}`}
               />
             </div>
           </div>
@@ -193,7 +207,7 @@ function ContactUs() {
             value={formData.message}
             placeholder={staticTexts["message"]}
             onChange={handleChange}
-            className="contact-us__textarea"
+            className={`contact-us__textarea ${errors.message ? "red-border" : ""}`}
           ></textarea>
           <button className="contact-us__button" type="submit">
             {staticTexts?.apply}

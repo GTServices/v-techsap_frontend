@@ -144,7 +144,7 @@ function ProductsHome() {
               </div>
             ))
           ) : (
-            <p>Yüklənir...</p>
+            <p></p>
           )}
         </div>
         <div className="pro-button">

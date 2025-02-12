@@ -107,7 +107,7 @@ const ContactHead = React.memo(() => {
   }, [selectedLanguage]);
 
   if (loading) {
-    return <div>Yüklənir...</div>;
+    return <div></div>;
   }
 
   if (error) {

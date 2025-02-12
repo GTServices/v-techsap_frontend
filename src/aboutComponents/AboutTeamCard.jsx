@@ -68,7 +68,7 @@ function AboutTeamCard() {
   return (
     <div className="about-team-card">
       {isLoading ? (
-        <p>Loading team members...</p> 
+        <p></p> 
       ) : teamData.length > 0 ? (
         teamData.slice(0, maxCards).map((teamMember) => (
           <div className="card" key={teamMember.id}>

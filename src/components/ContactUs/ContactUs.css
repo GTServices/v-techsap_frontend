@@ -109,6 +109,9 @@
   transition: all 0.3s ease-in-out; 
   width: 100%;
 }
+.red-border {
+  border: 2px solid red;
+}
 
 .contact-us__button:hover {
   background-color: #FFFFFF;

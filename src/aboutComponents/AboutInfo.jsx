@@ -100,7 +100,7 @@ function AboutInfo() {
   }, [BASE_URL, selectedLanguage]);
 
   if (isLoading) {
-    return <div>Yüklənir...</div>; 
+    return <div></div>; 
   }
 
   return (

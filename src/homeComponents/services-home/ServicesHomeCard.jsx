@@ -12,7 +12,7 @@ function ServicesHomeCard({ services, colors = ["#ccc"], isMobile = false }) {
 
 
   if (isLoading) {
-    return <p>Yüklənir...</p>;
+    return <p></p>;
   }
 
   return (
@@ -46,7 +46,7 @@ function ServicesHomeCard({ services, colors = ["#ccc"], isMobile = false }) {
           </Link>
         ))
       ) : (
-        <p>Xidmət mövcud deyil</p>
+        <p></p>
       )}
     </div>
   );

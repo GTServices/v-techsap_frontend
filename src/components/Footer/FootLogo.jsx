@@ -53,7 +53,7 @@ function FootLogo() {
           <p>Logo</p> 
         )}
       </div>
-      <h4 className="foot-tagline">{footerTitle || 'Loading footer title...'}</h4> 
+      <h4 className="foot-tagline">{footerTitle}</h4> 
     </section>
   );
 }

@@ -74,7 +74,7 @@ const ContactMap = memo(() => {
 
 
   if (loading) {
-    return <div>Yüklənir...</div>;
+    return <div></div>;
   }
 
   if (error) {

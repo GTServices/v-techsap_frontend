@@ -30,7 +30,7 @@ function ServicesHero({serviceData}) {
   // }
 
   if (!serviceData) {
-    return <div>Yüklənir...</div>; 
+    return <div></div>; 
   }
 
 
@@ -44,14 +44,14 @@ function ServicesHero({serviceData}) {
           {image ? (
             <img src={image} alt={title || "Service Image"} />
           ) : (
-            <div>No image available</div>
+            <div></div>
           )}
         </div>
 
         {/* Right Hero Section */}
         <div className="services-hero-right-top">
-          <h3>{subTitle || "No Title"}</h3> 
-          <p>{desc || "No description available"}</p>
+          <h3>{subTitle}</h3> 
+          <p>{desc }</p>
         </div>
 
         {/* Description */}
@@ -65,13 +65,13 @@ function ServicesHero({serviceData}) {
             {specs.map((spec, index) => (
               <div className={`services-hero-card-${spec.id}`} key={spec.id}>
                 <h4>{index + 1 < 10 ? `0${index + 1}` : index + 1}</h4>
-                <h3>{spec.title || "No Title"}</h3>
-                <p>{spec.desc || "No description available"}</p>
+                <h3>{spec.title }</h3>
+                <p>{spec.desc}</p>
               </div>
             ))}
           </div>
         ) : (
-          <div>No specs available</div>
+          <div></div>
         )}
 
    

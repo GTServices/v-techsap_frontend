@@ -53,11 +53,11 @@ function About() {
 
   if (!seoData) {
 
-    return <div>Loading SEO data...</div>;
+    return <div></div>;
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div></div>}>
      
       <Helmet>
         <title>{seoData.title }</title>

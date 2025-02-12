@@ -124,7 +124,7 @@ const Header = memo(() => {
   }, []);
   
 
-  return ( //  ??? added div same classname
+  return ( 
     <header className={`h-wrapper  ${isScrolled ? "scroll-active" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
       <div className="container headerContent">
         <div className="header_logo">
@@ -132,7 +132,7 @@ const Header = memo(() => {
             {logoURL ? (
               <img src={logoURL} alt="header_logo_img" />
             ) : (
-              <span>Loading...</span>
+              <span></span>
             )}
           </a>
         </div>

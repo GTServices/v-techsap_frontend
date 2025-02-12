@@ -68,7 +68,7 @@ function CostumersHome() {
 
       <div className="costumersButton">
         <a href="#" onClick={handleSeeAllClick}>
-          <button className="orangeBtn">{formatText(seeAllText)}</button>
+          {/* <button className="orangeBtn">{formatText(seeAllText)}</button> */}
         </a>
       </div>
     </div>
