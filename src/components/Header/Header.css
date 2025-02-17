@@ -32,6 +32,7 @@
   margin-top: 0;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
   z-index: 9999;
+  color: red;
   /* padding-inline: 12.5rem; */
 }
 .h-wrapper .header_logo {
@@ -471,4 +472,7 @@
 .h-wrapper .social-links {
   gap: 0 !important;
   margin-top: 2.3rem !important;
+}
+.head_navList .activeLink {
+  color: var(--PrimaryColor_1) !important;
 }

@@ -11,14 +11,13 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 const Header = memo(() => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
+  const BASE_URL = useSelector((state) => state.tech.BASE_URL);
   const languages = useSelector((state) => state.tech.languages) || [];
   const [navbarData, setNavbarData] = useState({});
-  const [logoURL, setLogoURL] = useState(""); 
+  const [logoURL, setLogoURL] = useState("");
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
 
   const storedLanguage = localStorage.getItem('selectedLanguage');
   const [selectedLanguage, setSelectedLanguage] = useState(storedLanguage || "az");
@@ -27,7 +26,7 @@ const Header = memo(() => {
     try {
       const response = await fetch(`${BASE_URL}/staticImage/logo`);
       const data = await response.json();
-      setLogoURL(data.image); 
+      setLogoURL(data.image);
     } catch (error) {
       console.error("Error fetching logo:", error);
     }
@@ -58,16 +57,16 @@ const Header = memo(() => {
     try {
       const response = await fetch(`${BASE_URL}/lang`);
       const data = await response.json();
-      dispatch(setLanguages(data)); 
+      dispatch(setLanguages(data));
     } catch (error) {
       console.error("Error fetching languages:", error);
     }
   };
 
   useEffect(() => {
-    fetchLogo(); 
-    fetchNavbarData(); 
-    fetchLanguages(); 
+    fetchLogo();
+    fetchNavbarData();
+    fetchLanguages();
   }, [dispatch, selectedLanguage, BASE_URL]);
 
   const toggleMenu = useCallback(() => {
@@ -82,8 +81,8 @@ const Header = memo(() => {
 
   const changeLanguage = useCallback((language) => {
     setSelectedLanguage(language);
-    localStorage.setItem('selectedLanguage', language); // Save selected language to localStorage
-    dispatch(setLanguage(language)); 
+    localStorage.setItem('selectedLanguage', language); 
+    dispatch(setLanguage(language));
   }, [dispatch]);
 
   const handleClickOutside = useCallback((event) => {
@@ -111,6 +110,12 @@ const Header = memo(() => {
     };
   }, [handleClickOutside, handleScroll]);
 
+  const handleMenuItemClick = () => {
+    setIsMenuOpen(false); 
+    document.body.style.overflow = "auto"; 
+    window.scrollTo(0, 0); 
+  };
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
@@ -122,9 +127,8 @@ const Header = memo(() => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
 
-  return ( 
+  return (
     <header className={`h-wrapper  ${isScrolled ? "scroll-active" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
       <div className="container headerContent">
         <div className="header_logo">
@@ -149,15 +153,17 @@ const Header = memo(() => {
             <li>
               <NavLink
                 to={`/${selectedLanguage}/`}
-                className={({ isActive }) => (isActive && !location.pathname.split("/")[2]) ? "activeLink" : "" }
+                className={({ isActive }) => (isActive && !location.pathname.split("/")[2]) ? "activeLink" : ""}
+                onClick={handleMenuItemClick}
               >
-                {navbarData["home-page"] || "Ana Sehife"} 
+                {navbarData["home-page"] || "Ana Sehife"}
               </NavLink>
             </li>
             <li>
               <NavLink
                 to={`/${selectedLanguage}/about`}
-                className={({ isActive }) => isActive ? "activeLink" : "" }
+                className={({ isActive }) => isActive ? "activeLink" : ""}
+                onClick={handleMenuItemClick}
               >
                 {navbarData["about"] || "Haqqımızda"}
               </NavLink>
@@ -165,7 +171,8 @@ const Header = memo(() => {
             <li>
               <NavLink
                 to={`/${selectedLanguage}/services`}
-                className={({ isActive }) => isActive ? "activeLink" : "" }
+                className={({ isActive }) => isActive ? "activeLink" : ""}
+                onClick={handleMenuItemClick}
               >
                 {navbarData["services"] || "Xidmətlər"}
               </NavLink>
@@ -173,7 +180,8 @@ const Header = memo(() => {
             <li>
               <NavLink
                 to={`/${selectedLanguage}/contact`}
-                className={({ isActive }) => isActive ? "activeLink" : "" }
+                className={({ isActive }) => isActive ? "activeLink" : ""}
+                onClick={handleMenuItemClick}
               >
                 {navbarData["contact"] || "Əlaqə"}
               </NavLink>

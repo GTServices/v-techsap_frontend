@@ -138,6 +138,9 @@
   .hero-wrapper {
     position: relative; 
 }
+.hero-wrapper .hero-right-img{
+  width: 100%;
+}
 .hero-wrapper .hero-left-content {
     position: absolute;
     bottom: 42%; 

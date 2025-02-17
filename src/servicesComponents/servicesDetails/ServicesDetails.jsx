@@ -69,17 +69,13 @@ function ServicesDetails() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify([
-          "other-services", 
-          "see-all"
-        ]),
+        body: JSON.stringify([ "other-services", "see-all" ]),
       });
       if (!response.ok) throw new Error("Unexpected occurred");
       const data = await response.json(); 
 
       // "other-services" arrayi varsa onu sıralayırıq
       if (Array.isArray(data["other-services"])) {
-        // Azərbaycan dilində sıralama
         const collator = new Intl.Collator('az', { sensitivity: 'base' });
         data["other-services"].sort(collator.compare);
       }
@@ -112,6 +108,10 @@ function ServicesDetails() {
     return 3;
   };
 
+
+  const headingText = serviceData?.customersTitle || "IT xidmətindən istifadə edən müştərilərimiz";
+  const formattedHeading = headingText.toUpperCase(); 
+
   return (
     <div className="services-details ">
       
@@ -121,7 +121,7 @@ function ServicesDetails() {
       <ServicesDetailsInfo serviceData={serviceData}/>
 
       <div className="services-hero-detail">
-        <h3>{serviceData?.customersTitle || "IT xidmətindən istifadə edən müştərilərimiz"}</h3> 
+        <h3>{formattedHeading}</h3> 
         <h4>{customerHeading}</h4>
       </div>
       <div className="costumer-for-detail">
@@ -130,7 +130,12 @@ function ServicesDetails() {
 
       <div className="services-detail-cards ">
         <div className='container'> 
-        <h3 className="gradient-heading">{texts["other-services"]}</h3>
+        <h3 className="gradient-heading">
+  {texts["other-services"]?.localeCompare(texts["other-services"].toLocaleUpperCase("az")) === 0
+    ? texts["other-services"]
+    : texts["other-services"].toLocaleUpperCase("az")}
+</h3>
+
         </div>
         <ServicesHomeCard
           services={services.slice(0, getCardCount())}
@@ -141,9 +146,7 @@ function ServicesDetails() {
           <Link to={`/${selectedLanguage}/services`} className="orangeBtn">{texts["see-all"]}</Link>
         </div>
       </div>
-      <div className='container'>
       <ContactUs />
-      </div>
     </div>
   );
 }

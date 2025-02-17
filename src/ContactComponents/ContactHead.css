@@ -27,6 +27,7 @@
     border-radius: 8px;
     background-color: var(--Secondary);
     padding: 1rem;
+    cursor: pointer;
 }
 .contact-head .contact-icon {
     background-color: var(--PrimaryColor_1);

@@ -71,7 +71,7 @@ function Home() {
 
       <div>
         <Hero />
-        <div> </div>
+    
         <AboutHome />
         <ServicesHome />
         {/* <ProductsHome /> */}

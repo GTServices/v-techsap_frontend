@@ -20,7 +20,6 @@ function Partnyors() {
     fetchPartners();
   }, [BASE_URL]);
 
-
   const doubledPartners = useMemo(() => {
     return partners.concat(partners); 
   }, [partners]);

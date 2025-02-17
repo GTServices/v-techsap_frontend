@@ -87,7 +87,7 @@ function ServicesHome() {
       )}
       {miniMobile ? (
         <div className="ser-home-btn">
-          {/* <button className="orangeBtn">Daha Cox</button> */}
+      
         </div>
       ) : (
         <div className="left-right-btns container">

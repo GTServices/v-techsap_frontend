@@ -56,14 +56,15 @@ function AboutTeamCard() {
 
  
   useEffect(() => {
-    if (windowWidth >= 768) {
-      setMaxCards(8);
-    } else if (windowWidth >= 375) {
-      setMaxCards(6);
+    if (windowWidth > 768) {
+      setMaxCards(8); 
+    } else if (windowWidth <= 768 && windowWidth > 375) {
+      setMaxCards(6); 
     } else {
-      setMaxCards(4);
+      setMaxCards(4); 
     }
   }, [windowWidth]);
+  
 
   return (
     <div className="about-team-card">

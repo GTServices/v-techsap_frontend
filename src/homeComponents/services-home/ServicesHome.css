@@ -7,8 +7,8 @@
 }
 .card-zone {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(31rem, 1fr));
-  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(31rem, 1fr));
+  /* justify-items: center; */
   gap: 2.4rem;
   margin-block: 2.4rem 4rem;
 }
