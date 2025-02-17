@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet'; 
+import { Helmet } from 'react-helmet-async';
 
 const ContactHead = lazy(() => import('../ContactComponents/ContactHead'));
 const ContactMap = lazy(() => import('../ContactComponents/ContactMap'));

@@ -4,7 +4,7 @@ import ContactUs from '../components/ContactUs/ConstactUs';
 import ServicesTitle from '../servicesComponents/ServicesTitle';
 import Pagination from '../components/Pagination/Pagination';
 import { useSelector } from 'react-redux';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 function Services() {
   const colors = [
@@ -58,7 +58,10 @@ function Services() {
   };
 
   useEffect(() => {
-    fetchSeoData(); 
+    fetchSeoData();
+  }, [BASE_URL])
+
+  useEffect(() => { 
     fetchServices(); 
   }, [BASE_URL, selectedLanguage, currentPage]);
 

@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/Layout/Layout";
 import Home from "./Pages/Home";
@@ -8,12 +8,15 @@ import Services from "./Pages/Services";
 import Contact from "./Pages/Contact";
 import ServicesDetails from "./servicesComponents/servicesDetails/ServicesDetails";
 import NotFound from "./Pages/notFound";
+import { useSelector } from "react-redux";
 
 function App() {
+  const {language} = useSelector(state => state.tech);  
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/az/" replace />} />
+        <Route path="/" element={<Navigate to={`/${language}`} replace />} />
         <Route path="/:lang/" element={<Layout><Home /></Layout>} />
         <Route path="/:lang/about" element={<Layout><About /></Layout>} />
         <Route path="/:lang/services" element={<Layout><Services /></Layout>} />

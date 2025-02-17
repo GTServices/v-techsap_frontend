@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { setLanguages } from '../redux/techSlice'; 
+import { Helmet } from 'react-helmet-async';
 
 const Hero = lazy(() => import('../homeComponents/HomeHero/Hero'));
 const AboutHome = lazy(() => import('../homeComponents/about-home/AboutHome'));
@@ -40,7 +40,7 @@ function Home() {
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/languages`);
+        const response = await fetch(`${BASE_URL}/lang`);
         const data = await response.json();
         if (response.ok) {
           dispatch(setLanguages(data)); 

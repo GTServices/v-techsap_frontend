@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { setLanguages } from '../redux/techSlice'; 
+import { Helmet } from 'react-helmet-async';
 
 const AboutHero = lazy(() => import('../aboutComponents/AboutHero'));
 const AboutInfo = lazy(() => import('../aboutComponents/AboutInfo'));

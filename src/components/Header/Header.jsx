@@ -6,11 +6,14 @@ import { MdOutlineLanguage } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import { FaLocationDot, FaPhone, FaInstagram, FaLinkedin, FaYoutube, FaFacebook } from "react-icons/fa6";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 
 const Header = memo(() => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const {lang} = useParams();
+  const currentPath = location.pathname.split("/").slice(2).join("/");
+  
   const BASE_URL = useSelector((state) => state.tech.BASE_URL);
   const languages = useSelector((state) => state.tech.languages) || [];
   const [navbarData, setNavbarData] = useState({});
@@ -21,6 +24,10 @@ const Header = memo(() => {
 
   const storedLanguage = localStorage.getItem('selectedLanguage');
   const [selectedLanguage, setSelectedLanguage] = useState(storedLanguage || "az");
+
+  useEffect(() => {
+    changeLanguage(lang);
+  }, [])
 
   const fetchLogo = async () => {
     try {
@@ -244,9 +251,9 @@ const Header = memo(() => {
               ) : (
                 languages.map((lang) => (
                   <li key={lang.id}>
-                    <a href="#" onClick={() => changeLanguage(lang.langCode)}>
+                    <Link to={`/${lang.langCode}/${currentPath}`} onClick={() => changeLanguage(lang.langCode)}>
                       {lang.name}
-                    </a>
+                    </Link>
                   </li>
                 ))
               )}

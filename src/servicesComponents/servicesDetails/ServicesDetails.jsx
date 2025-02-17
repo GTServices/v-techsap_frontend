@@ -131,10 +131,10 @@ function ServicesDetails() {
       <div className="services-detail-cards ">
         <div className='container'> 
         <h3 className="gradient-heading">
-  {texts["other-services"]?.localeCompare(texts["other-services"].toLocaleUpperCase("az")) === 0
-    ? texts["other-services"]
-    : texts["other-services"].toLocaleUpperCase("az")}
-</h3>
+          {texts["other-services"]?.localeCompare(texts["other-services"]?.toLocaleUpperCase("az")) === 0
+            ? texts["other-services"]
+            : texts["other-services"]?.toLocaleUpperCase("az")}
+        </h3>
 
         </div>
         <ServicesHomeCard
