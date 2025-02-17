@@ -94,6 +94,7 @@
     font-weight: 400;
     font-size: 1.6rem;
     color: var(--White);
+    pointer-events: none;
 }
                                                                     /*! Foot-Contact  END*/
                                                                     /*! Foot-Social  START*/                            
@@ -183,7 +184,6 @@
     font-weight: 500;
     font-size: 1.6rem;
     color: var(--White);
-    cursor: pointer;
   }
   .foot-bottom a {
     font-weight: 600;       
@@ -257,6 +257,7 @@
 }
 .foot-contact .contact-details a{
   font-size: 1.4rem;
+  pointer-events: all;
 }
 .foot-bottom p {
   text-align: center;

@@ -76,7 +76,7 @@ function ServicesHero({serviceData}) {
 
    
         <div className="ser-but">
-          <Link to="/contact" className="orangeBtn">{buttonText}</Link>
+          <a href="#contact" className="orangeBtn">{buttonText}</a>
         </div>
       </div>
     </div>

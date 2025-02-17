@@ -122,9 +122,9 @@ function Hero() {
             </div>
             <h2>{heroTitle }</h2>
             <p>{heroDesc }</p>
-            <Link to={`/${selectedLang}/contact`} className="orangeBtn">
+            <a href="#contact" className="orangeBtn">
               {askUsText }
-            </Link>
+            </a>
           </div>
         </div>
 

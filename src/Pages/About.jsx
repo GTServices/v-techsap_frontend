@@ -36,7 +36,7 @@ function About() {
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/languages`);
+        const response = await fetch(`${BASE_URL}/lang`);
         const data = await response.json();
         if (response.ok) {
           dispatch(setLanguages(data)); 

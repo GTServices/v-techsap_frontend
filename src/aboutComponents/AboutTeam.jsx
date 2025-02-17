@@ -67,11 +67,6 @@ function AboutTeam() {
       </div>
  
       <MemoizedAboutTeamCard />
-      <div className="costumersButton">
-        {/* <a href="#">
-          <button className="orangeBtn">{texts["see-all"]}</button>
-        </a> */}
-      </div>
     </div>
   );
 }

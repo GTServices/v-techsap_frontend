@@ -4,7 +4,7 @@ import { FaLocationDot, FaPhone, FaInstagram, FaLinkedin, FaYoutube, FaFacebook 
 import "./Footer.css";
 
 function FootContact() {
-  const [contactData, setContactData] = useState({ phone: "", address: "" });
+  const [contactData, setContactData] = useState({ phone: "", address: "", mapLink: "" });
   const [socialLinks, setSocialLinks] = useState({
     instagram: "",
     linkedin: "",
@@ -28,7 +28,7 @@ function FootContact() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify([
-            "phone", "address", "instagram-link", "linkedin-link", "youtube-link", "facebook-link"
+            "phone", "address", "instagram-link", "linkedin-link", "youtube-link", "facebook-link", "map-link"
           ]),
         });
 
@@ -37,6 +37,7 @@ function FootContact() {
           setContactData({
             phone: data.phone,
             address: data.address,
+            mapLink: data["map-link"],
           });
           setSocialLinks({
             instagram: data["instagram-link"],
@@ -78,7 +79,7 @@ function FootContact() {
       <h4 className="foot-contact-title">{contactTitle}</h4>
       <ul className="contact-details">
         <li>
-          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer">
+          <a href={contactData.mapLink} target="_blank" rel="noopener noreferrer">
             <FaLocationDot className="contact-icon" />
             {contactData.address || "Address not available"}
           </a>

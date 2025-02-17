@@ -87,11 +87,14 @@ function ServicesDetails() {
   };
 
   useEffect(() => {
-    getServiceData();
     getCustomerHeading();
     getText();
     getServices();
   }, [BASE_URL, selectedLanguage]);
+
+  useEffect (() => {
+    getServiceData();
+  }, [slug, BASE_URL, selectedLanguage])
 
   const handleResize = useCallback(() => {
     setWindowWidth(window.innerWidth);

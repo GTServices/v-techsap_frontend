@@ -155,7 +155,7 @@ function ContactUs() {
   }
 
   return (
-    <div className="contact-us container">
+    <div className="contact-us container" id="contact">
       <div className="contact-us__left">
         <h4 className="contact-us__title">{texts["contact-subtitle"]}</h4>
         <p className="contact-us__description">{texts["contact-desc"]}</p>
