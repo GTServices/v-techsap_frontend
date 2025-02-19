@@ -46,7 +46,7 @@ function FootLogo() {
     <section className="foot-logo-section">
       <div className="logo-container">
         {logoUrl ? (
-          <Link to="/">
+          <Link to={`/${selectedLanguage}`}>
             <img src={logoUrl} alt="Company Logo" className="foot-logo-img" />
           </Link>
         ) : (

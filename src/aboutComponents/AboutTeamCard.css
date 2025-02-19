@@ -94,6 +94,10 @@
     font-size: 1.4rem; 
     color: #676767; 
 }
+.costumersButton{
+    width: max-content;
+    margin-inline: auto;
+}
                                                                                             /*! Responsive  */
 @media screen and (max-width: 1200px) {
     .about-team-card {

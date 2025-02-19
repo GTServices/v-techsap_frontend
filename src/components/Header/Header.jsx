@@ -139,13 +139,13 @@ const Header = memo(() => {
     <header className={`h-wrapper  ${isScrolled ? "scroll-active" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
       <div className="container headerContent">
         <div className="header_logo">
-          <a href="/">
+          <Link to={`/${selectedLanguage}`}>
             {logoURL ? (
               <img src={logoURL} alt="header_logo_img" />
             ) : (
               <span></span>
             )}
-          </a>
+          </Link>
         </div>
 
         <nav className={`head_navList ${isMenuOpen ? "active" : ""}`}>

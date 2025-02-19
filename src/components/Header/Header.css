@@ -249,7 +249,7 @@
                                                                                               /*? Responsive  768+*/
 @media (max-width: 1150px) {
   .h-wrapper .head_navList ul {
-    gap: clamp(1rem, 0.7rem, 1rem);
+    gap: 2.4rem;
     top: 19%;
   }
 }
