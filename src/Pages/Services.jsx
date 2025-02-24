@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ServicesHomeCard from '../homeComponents/services-home/ServicesHomeCard';
 import ContactUs from '../components/ContactUs/ConstactUs';
 import ServicesTitle from '../servicesComponents/ServicesTitle';
 import Pagination from '../components/Pagination/Pagination';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
+import useViewportWidth from '../hooks/useViewportWidth';
 
 function Services() {
   const colors = [
@@ -16,6 +17,19 @@ function Services() {
     "var(--Creamy_Almond)",
   ];
 
+  const width = useViewportWidth();
+  const [ perPage, setPerPage ] = useState(6);
+
+  // useEffect(() => {
+  //   if (width > 1028) {
+  //     setPerPage(6);
+  //   } else if (width > 677) {
+  //     setPerPage(4);
+  //   } else {
+  //     setPerPage(3)
+  //   }
+  // }, [width])
+
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [loading, setLoading] = useState(true); 
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +39,14 @@ function Services() {
   const [seoData, setSeoData] = useState(null); 
   const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
   const selectedLanguage = useSelector((state) => state.tech.language); 
+
+  const sectionRef = useRef(null);
+
+  const scrollToSection = () => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   const fetchSeoData = async () => {
     try {
@@ -43,7 +65,7 @@ function Services() {
   const fetchServices = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${BASE_URL}/service?perPage=6&page=${currentPage}&lang=${selectedLanguage}`);
+      const response = await fetch(`${BASE_URL}/service?perPage=${perPage}&page=${currentPage}&lang=${selectedLanguage}`);
       if (!response.ok) {
         throw new Error("");
       }
@@ -63,7 +85,8 @@ function Services() {
 
   useEffect(() => { 
     fetchServices(); 
-  }, [BASE_URL, selectedLanguage, currentPage]);
+    scrollToSection();
+  }, [BASE_URL, selectedLanguage, currentPage, perPage]);
 
   return (
     <div className="ser">
@@ -77,7 +100,9 @@ function Services() {
       )}
 
       <ServicesTitle />
-      <ServicesHomeCard services={services} colors={colors} isMobile={isMobile} />
+      <div ref={sectionRef}>
+        <ServicesHomeCard services={services} colors={colors} isMobile={isMobile} />
+      </div>
       <Pagination 
         totalPages={totalPages}
         currentPage={currentPage} 

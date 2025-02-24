@@ -8,9 +8,16 @@
 .card-zone {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(31rem, 1fr));
-  /* justify-items: center; */
+  justify-items: center;
+  align-content: center;
   gap: 2.4rem;
   margin-block: 2.4rem 4rem;
+}
+.card-link-wrapper{
+  width: min(100%, 40.8rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .card-zone .card {
   width: min(100%, 40.8rem);
@@ -107,6 +114,20 @@
 .ser-home-btn {
   text-align: center;
   margin-top: 2rem;
+}
+.more-btn{
+  display: block;
+  width: max-content;
+  padding: 12px 32px;
+  margin-top: 20px;
+  color: var(--White, #fff);
+  background-color: var(--PrimaryColor_1);
+  margin-inline: auto;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
 }
 
 /*! RESPONSIVE */

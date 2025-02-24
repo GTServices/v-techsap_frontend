@@ -37,7 +37,7 @@
   background-color: #FFFFFF;
   padding: 2.4rem;
   border-radius: 8px;
-  margin-top: clamp(3rem, 4vw, 4rem); 
+  /* margin-top: clamp(3rem, 4vw, 4rem);  */
 }
 
 .contact-us__form-title {
@@ -59,7 +59,7 @@
 .contact-us__inputs {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(1rem, 2vw, 1.5rem);
+  gap: clamp(1rem, 2vw, 2.4rem);
   width: 100%;
 }
 
@@ -67,7 +67,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: clamp(0.8rem, 1vw, 1rem); 
+  gap: 1.7rem; 
 }
 
 .contact-us input {

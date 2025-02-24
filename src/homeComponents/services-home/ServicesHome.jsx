@@ -6,8 +6,23 @@ import ServicesHomeHead from "./ServicesHomeHead";
 import ServicesHomeCard from "./ServicesHomeCard";
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useSelector } from "react-redux";
+import useViewportWidth from "../../hooks/useViewportWidth";
+import { Link } from "react-router-dom";
 
 function ServicesHome() {
+  const width = useViewportWidth();
+  const [ perPage, setPerPage ] = useState(6);
+
+  useEffect(() => {
+    if (width > 1028) {
+      setPerPage(6);
+    } else if (width > 677) {
+      setPerPage(4);
+    } else {
+      setPerPage(3)
+    }
+  }, [width])
+
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [miniMobile, setMiniMobile] = useState(window.innerWidth < 375);
   const [error, setError] = useState(null);
@@ -33,7 +48,7 @@ function ServicesHome() {
   const fetchServices = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`${BASE_URL}/service?perPage=6&page=${currentPage}&lang=${selectedLanguage}`);
+      const response = await fetch(`${BASE_URL}/service?perPage=${perPage}&page=${currentPage}&lang=${selectedLanguage}`);
       if (!response.ok) {
         throw new Error("");
       }
@@ -50,7 +65,7 @@ function ServicesHome() {
   useEffect(() => {
     fetchServices();
 
-  }, [BASE_URL, selectedLanguage, currentPage]);
+  }, [BASE_URL, selectedLanguage, currentPage, perPage]);
 
   function handlePrewServices () {
     if (currentPage > 1) {
@@ -90,10 +105,19 @@ function ServicesHome() {
       
         </div>
       ) : (
+        
+        width > 677 ?
         <div className="left-right-btns container">
-      <i onClick={handlePrewServices}><FaArrowLeft /></i>
-      <i onClick={handleNextServices} className="right-arrow"><FaArrowRight /></i>
-    </div>
+          <i onClick={handlePrewServices}><FaArrowLeft /></i>
+          <i onClick={handleNextServices} className="right-arrow"><FaArrowRight /></i>
+        </div> :
+        <Link
+          to={`/${selectedLanguage}/services`}
+          className="more-btn"
+        >
+          Daha çox
+        </Link>
+        
       )}
     </section>
   );

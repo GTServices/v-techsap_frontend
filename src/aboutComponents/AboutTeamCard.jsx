@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { FaLinkedin } from 'react-icons/fa';
 import './AboutTeamCard.css';
+import useViewportWidth from '../hooks/useViewportWidth';
 
 const useDebouncedResize = (delay = 300) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -33,7 +34,20 @@ function AboutTeamCard() {
   const BASE_URL = useSelector((state) => state.tech.BASE_URL); 
   const selectedLanguage = useSelector((state) => state.tech.language); 
   const windowWidth = useDebouncedResize();
-  const [ currentTeamCount, setCurrentTeamCount ] = useState(8);
+  
+  const width = useViewportWidth();
+  const [ perPage, setPerPage ] = useState(8);
+  const [ currentTeamCount, setCurrentTeamCount ] = useState(perPage);
+
+  useEffect(() => {
+    if (width >= 960) {
+      setPerPage(8);
+      setCurrentTeamCount(8)
+    } else {
+      setPerPage(6)
+      setCurrentTeamCount(6)
+    }
+  }, [width])
 
   const getStaticText = async () => {
     try {
@@ -91,7 +105,7 @@ function AboutTeamCard() {
   }, [windowWidth]);
 
   function handleSeeMore() {
-    setCurrentTeamCount(prew => prew+8);
+    setCurrentTeamCount(prew => prew+perPage);
   }
   
 
